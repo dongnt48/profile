@@ -1,0 +1,1 @@
+export default function HomePage() { return <div className="sr-only"><h1>DongOS — Personal 3D Workspace</h1><p>Khám phá phòng làm việc 3D, các dự án, kinh nghiệm, kỹ năng và thông tin liên hệ.</p><a href="/os/">Open Profile Directly</a></div>; }

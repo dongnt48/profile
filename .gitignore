@@ -1,0 +1,27 @@
+node_modules/
+.next/
+out/
+test-results/
+playwright-report/
+*.tsbuildinfo
+.tools/
+*.blend1
+
+# Local environment and diagnostics
+.env*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+
+# Blender/Python generated files
+__pycache__/
+*.py[cod]
+*.blend[0-9]
+
+# Keep only the screenshots referenced by README.md
+/docs/screenshots/*
+!/docs/screenshots/room.png
+!/docs/screenshots/desktop.png
+!/docs/screenshots/about.png
+!/docs/screenshots/mobile.png
