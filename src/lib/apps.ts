@@ -10,5 +10,4 @@ export const apps = [
   { id: 'contact', title: 'Contact', subtitle: 'Start a conversation', icon: Mail, color: 'sand' },
   { id: 'settings', title: 'Settings', subtitle: 'Make yourself at home', icon: Settings2, color: 'clay' },
 ] as const;
-export const isAppId = (value: string | null): value is AppId => apps.some(app => app.id === value);
 export const getApp = (id: AppId) => apps.find(app => app.id === id)!;

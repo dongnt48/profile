@@ -1,4 +1,5 @@
 'use client';
+import { useTranslation } from '@/lib/i18n';
 import { Component, Suspense, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { useProgress } from '@react-three/drei';
@@ -17,16 +18,18 @@ class SceneBoundary extends Component<{ children: ReactNode }, { error: boolean 
 }
 
 function Fallback() {
+  const { t } = useTranslation();
   return (
     <div className="scene-fallback">
-      <img src="/images/room-preview.png" alt="Phòng làm việc 3D với bể cá và bàn máy tính" />
-      <p>3D isn’t available here. Your profile is one click away.</p>
-      <a href="/os/">Open Profile →</a>
+      <img src="/images/room-preview.png" alt={t('3D workspace with an aquarium and computer desk')} />
+      <p>{t('3D isn’t available here. Your profile is one click away.')}</p>
+      <button className="text-button" onClick={() => useExperienceStore.getState().setMode('os')}>{t('Open profile')} →</button>
     </div>
   );
 }
 
 function LoadingProgress() {
+  const { t } = useTranslation();
   const { progress, active } = useProgress();
   const ready = useExperienceStore(s => s.ready);
   const failed = useExperienceStore(s => s.failed);
@@ -52,13 +55,13 @@ function LoadingProgress() {
           <strong>Đông</strong>
           <span> / workspace</span>
         </div>
-        <p className="boot-loader-label">Đang tải không gian 3D &amp; dữ liệu…</p>
+        <p className="boot-loader-label">{t('Loading 3D workspace and data…')}</p>
         <div className="boot-loader-bar-wrap">
           <progress max={100} value={displayProgress} />
           <div className="boot-loader-bar-fill" style={{ width: `${displayProgress}%` }} />
         </div>
         <div className="boot-loader-meta">
-          <span>Preparing the room</span>
+          <span>{t('Preparing the room')}</span>
           <strong>{displayProgress}%</strong>
         </div>
       </div>

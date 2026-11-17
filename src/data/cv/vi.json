@@ -1,0 +1,139 @@
+{
+  "summary": [
+    "Software Developer có kinh nghiệm phát triển phần mềm, tập trung vào xây dựng hệ thống quản lý doanh nghiệp, thiết kế cơ sở dữ liệu, phát triển API và tích hợp các nền tảng bên thứ ba. Có kinh nghiệm làm việc với PHP, Node.js/NestJS, MySQL và PostgreSQL, đồng thời từng tham gia phát triển các hệ thống CRM, tự động hóa quy trình và giải quyết những bài toán nghiệp vụ phức tạp.",
+    "Có khả năng phân tích yêu cầu, thiết kế giải pháp và phát triển các sản phẩm phần mềm trong lĩnh vực CRM, HRM và ứng dụng AI. Luôn chủ động nghiên cứu công nghệ mới, ứng dụng các công cụ AI nhằm nâng cao hiệu quả phát triển và chất lượng sản phẩm, hướng đến việc xây dựng những hệ thống có tính ổn định, khả năng mở rộng và đáp ứng hiệu quả nhu cầu thực tế của doanh nghiệp."
+  ],
+  "skills": [
+    {
+      "group": "Backend",
+      "text": "Node.js, NestJS (RESTful API), PHP (Laravel, CodeIgniter, Vtiger Core)."
+    },
+    {
+      "group": "Frontend",
+      "text": "React, Next.js, jQuery, Smarty."
+    },
+    {
+      "group": "Cơ sở dữ liệu",
+      "text": "MySQL, PostgreSQL, Redis, Prisma ORM."
+    },
+    {
+      "group": "AI & Automation",
+      "text": "Tích hợp LLM API, AI Agent, AI Chatbot, RAG, Vector Search, Tool Calling, Workflow Automation."
+    },
+    {
+      "group": "Tích hợp hệ thống",
+      "text": "Facebook Graph API, Zalo OA/ZNS, Telegram Bot API, SePay, MQTT/IoT."
+    },
+    {
+      "group": "Công cụ & Môi trường",
+      "text": "Git, Docker, Linux Server, Nginx, Postman."
+    }
+  ],
+  "projects": [
+    {
+      "title": "DonBotify — Nền tảng SaaS Trợ lý ảo AI & Chăm sóc khách hàng Đa kênh",
+      "description": "AI Chatbot SaaS",
+      "tech": "NestJS REST API (/api/v1), Next.js, PostgreSQL, Redis, Socket.IO, S3 (SeaweedFS), Python (Docling)",
+      "features": [
+        "Xây dựng kiến trúc quản lý nhiều cửa hàng và chatbot với cấu hình, dữ liệu và kho kiến thức độc lập.",
+        "Tích hợp LLM và Knowledge Base ứng dụng RAG, Embedding, Vector Search để chatbot khai thác thông tin sản phẩm, tài liệu và hỗ trợ tư vấn theo ngữ cảnh.",
+        "Phát triển Unified Inbox, tích hợp Website Chat Widget, Facebook Fanpage và Zalo cá nhân.",
+        "Tích hợp thanh toán tự động qua SePay Webhooks để quản lý gói dịch vụ (Subscription Billing)."
+      ]
+    },
+    {
+      "title": "CRM Logistics tích hợp AI Agent",
+      "description": "Logistics CRM & AI Agent",
+      "tech": "NestJS, Next.js, PostgreSQL (pgvector), Redis, Prisma, LangGraph, Python (Docling), Docker, Nginx, Vitest, Playwright",
+      "features": [
+        "Phát triển các module quản lý khách hàng, Sales Pipeline, báo giá, booking, chứng từ, vận chuyển và thanh toán.",
+        "Xây dựng quy trình xử lý nghiệp vụ liên kết giữa các bộ phận kinh doanh, vận hành và kế toán.",
+        "Phát triển hệ thống phân quyền RBAC, Audit Logs, Dashboard và báo cáo KPI.",
+        "Tích hợp AI Agent với hệ thống CRM, hỗ trợ truy vấn thông tin và thực hiện các tác vụ nghiệp vụ thông qua Tool Calling.",
+        "Xây dựng Knowledge Base ứng dụng RAG, Embedding và Vector Search để truy xuất dữ liệu phục vụ AI.",
+        "Sử dụng LangGraph điều phối các bước xử lý của AI Agent, kết hợp cơ chế phân quyền và xác nhận trước khi thực hiện thao tác thay đổi dữ liệu.",
+        "Ứng dụng Background Jobs và Queue Workers để xử lý các tác vụ bất đồng bộ."
+      ]
+    },
+    {
+      "title": "ApproveGram — Hệ thống Quản trị Nhân sự (HRM) & Phê duyệt Quy trình",
+      "description": "HRM & Workflow Automation",
+      "tech": "NestJS, React (Vite), PostgreSQL, Prisma, Telegram Bot (grammy) & Mini App, Swagger, Vitest",
+      "features": [
+        "Thiết kế và phát triển các module HRM: quản lý nhân viên, phòng ban, ca làm việc, giao việc, báo cáo ngày và chấm công qua Webhook.",
+        "Xây dựng Workflow Engine hỗ trợ cấu hình quy trình trực quan bằng các node, điều kiện rẽ nhánh, phê duyệt nhiều bước, gửi thông báo và cập nhật dữ liệu nghiệp vụ.",
+        "Phát triển module tính lương dựa trên dữ liệu chấm công, tăng ca, phụ cấp và khấu trừ.",
+        "Tích hợp Telegram Bot (grammy) và Mini App, hỗ trợ nhân viên chấm công, gửi yêu cầu, quản lý công việc, tra cứu phiếu lương và tương tác trực tiếp với các bước phê duyệt.",
+        "Thiết kế phân quyền RBAC, bảo mật JWT + Argon2, Rate Limiting và kiểm thử tự động với Vitest."
+      ]
+    },
+    {
+      "title": "EDU CRM",
+      "description": "Education CRM",
+      "tech": "NestJS, Next.js, PostgreSQL 16, Redis 7 (BullMQ), Prisma, Tailwind CSS, shadcn/ui, Docker, Nginx, Vitest",
+      "features": [
+        "Phát triển các module quản lý tuyển sinh và đào tạo: Leads, lịch chăm sóc (Follow-ups), học viên, phụ huynh, lớp học, ghi danh, chuyển lớp và thanh toán học phí.",
+        "Xây dựng cơ chế phân công tư vấn, chống trùng lead, thông báo tự động và xử lý hàng đợi bất đồng bộ với BullMQ & Redis.",
+        "Phát triển hệ thống phân quyền RBAC, nhật ký đăng nhập (Login Logs), báo cáo thống kê và xuất dữ liệu Excel (ExcelJS).",
+        "Thiết kế bảo mật JWT với Refresh Token xoay vòng (Argon2, Helmet) và kiểm thử tự động Unit/E2E với Vitest & Supertest."
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "role": "Freelance & Independent Projects",
+      "company": "",
+      "period": "09/2025 – Hiện tại",
+      "achievements": []
+    },
+    {
+      "role": "Lập trình viên Phần mềm (Software Developer)",
+      "company": "Innocom",
+      "period": "09/2022 – 06/2025",
+      "achievements": [
+        "Tham gia phát triển, mở rộng và bảo trì sản phẩm CRM riêng của công ty dựa trên Vtiger Core, tập trung vào quản lý nghiệp vụ, tự động hóa quy trình và tích hợp hệ thống.",
+        "Thiết kế và phát triển các module nghiệp vụ, xử lý logic và mở rộng chức năng của hệ thống CRM.",
+        "Xây dựng Customizer Framework giúp phát triển và tùy chỉnh chức năng mà không cần can thiệp trực tiếp vào mã nguồn lõi, nâng cao khả năng bảo trì và mở rộng hệ thống.",
+        "Phát triển các quy trình tự động hóa như Approval, Routing, SLA và Notifications, giúp giảm khoảng 60–70% thời gian xử lý Lead.",
+        "Xây dựng hệ thống Job Queue phục vụ xử lý tác vụ nền và tự động hóa nghiệp vụ, giảm khoảng 90% lỗi thao tác thủ công.",
+        "Tích hợp Facebook Ads, Zalo Ads, Zalo OA và Telegram, hỗ trợ đồng bộ dữ liệu và kết nối các kênh giao tiếp với CRM.",
+        "Phát triển Live Chat đa kênh, tích hợp Facebook Page và Zalo OA, giúp giảm khoảng 80% thời gian phản hồi khách hàng.",
+        "Phát triển và mở rộng các chức năng CRM phục vụ lĩnh vực giáo dục, logistics và du lịch.",
+        "Công nghệ: PHP, JavaScript, Node.js, MySQL, jQuery, Smarty, REST API, Webhooks, Git."
+      ]
+    },
+    {
+      "role": "Lập trình viên Phần mềm (Dự án Outsource)",
+      "company": "FE Credit",
+      "period": "10/2024 – 03/2025",
+      "achievements": [
+        "Mở rộng chức năng CRM sử dụng Vtiger Customizer.",
+        "Phát triển các module nghiệp vụ và workflow tự động hóa.",
+        "Xử lý yêu cầu thay đổi chức năng và tối ưu hiệu năng hệ thống.",
+        "Tư vấn kỹ thuật và xây dựng tài liệu phục vụ đội ngũ vận hành.",
+        "Công nghệ: PHP, Vtiger CRM Core, MySQL, REST API, Linux Server."
+      ]
+    },
+    {
+      "role": "Lập trình viên Phần mềm (Software Developer)",
+      "company": "A.D.A",
+      "period": "04/2021 – 09/2021",
+      "achievements": [
+        "Tham gia phát triển hệ thống quản lý và giám sát dữ liệu phương tiện giao thông (định vị GPS, tiêu hao nhiên liệu, nhiệt độ thùng hàng lạnh, cảm biến tải trọng).",
+        "Tích hợp các thiết bị phần cứng IoT (camera giám sát, cảm biến) với máy chủ backend qua RESTful APIs, bảo đảm dữ liệu truyền nhận theo thời gian thực ổn định và chính xác.",
+        "Công nghệ: PHP (CodeIgniter), JavaScript, Node.js, jQuery, REST API, MySQL, Git."
+      ]
+    },
+    {
+      "role": "Thực tập sinh R&D IoT",
+      "company": "VNPT An Giang",
+      "period": "08/2020 – 11/2020",
+      "achievements": [
+        "Nghiên cứu và triển khai dự án “Hệ thống Giám sát & Điều khiển Vườn thông minh (HydroGarden)”.",
+        "Thu thập dữ liệu cảm biến đa thông số (nhiệt độ, độ ẩm, ánh sáng, độ ẩm đất) lưu trữ cơ sở dữ liệu; xây dựng ứng dụng web điều khiển từ xa các thiết bị phần cứng (bơm nước, đèn quang hợp, van servo).",
+        "Ứng dụng giao thức MQTT phục vụ trao đổi dữ liệu tốc độ cao, tích hợp tính năng cập nhật firmware từ xa (OTA) không cần can thiệp thủ công vào thiết bị.",
+        "Công nghệ: MQTT, Arduino IDE/C++, Node.js, JavaScript, MySQL, REST API."
+      ]
+    }
+  ]
+}

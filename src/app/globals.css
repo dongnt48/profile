@@ -3152,3 +3152,11 @@ svg {
         scroll-behavior: auto !important
     }
 }
+
+/* CV content and persistent language controls. */
+.language-switcher{position:fixed;right:20px;top:55px;z-index:20000;display:flex;gap:3px;padding:3px;border:1px solid #d7c6a855;border-radius:9px;background:#1c211ef2;box-shadow:0 3px 14px #0003}
+.language-switcher button{min-width:44px;min-height:38px;border-radius:5px;font-size:12px;color:#d7c6a8}
+.language-switcher button[aria-pressed=true]{background:#d7c6a8;color:#1c211e}
+.cv-summary{margin:23px 0}.cv-project-links{display:flex;flex-direction:column;align-items:flex-start;gap:9px}.cv-project-links button{text-align:left;line-height:1.6}
+.window-title{min-width:0}.window-title>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.window-controls{flex-shrink:0}.project-card h2{line-height:1.5;overflow-wrap:anywhere}.about-bottom{flex-wrap:wrap}.welcome-copy h1{font-size:clamp(38px,4.3vw,65px)}
+@media(max-width:700px){.language-switcher{top:auto;bottom:94px;right:12px}.language-switcher button{min-height:44px}.about-heading h1{font-size:29px}.contact-email{gap:5px}.contact-email>a{font-size:14px}.cv-summary{margin:18px 0}}

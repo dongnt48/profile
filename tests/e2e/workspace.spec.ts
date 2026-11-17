@@ -1,8 +1,26 @@
 import { expect, test } from '@playwright/test';
 
-test('direct desktop needs no model, windows restore and project filters work', async ({ page }) => {
+test('removed desktop route returns 404 without mounting the workspace', async ({ page }) => {
+  const response = await page.goto('/os/');
+  expect(response?.status()).toBe(404);
+  await expect(page.locator('.experience')).toHaveCount(0);
+});
+async function openFallback(page: import('@playwright/test').Page) {
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function(this: HTMLCanvasElement, type: string, ...args: unknown[]) {
+      if (type === 'webgl2') return null;
+      return original.apply(this, [type, ...args] as Parameters<typeof original>);
+    } as typeof original;
+  });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Open profile', exact: true }).click();
+}
+
+
+test('fallback stays on root, windows restore and project filters work', async ({ page }) => {
   const modelRequests: string[] = []; page.on('request', r => { if (r.url().endsWith('.glb')) modelRequests.push(r.url()); });
-  await page.goto('/os/');
+  await openFallback(page);
   await expect(page.getByRole('main', { name: 'DongOS desktop' })).toBeVisible();
   await page.getByRole('button', { name: 'Open About me', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'About me', exact: true })).toBeVisible();
@@ -12,16 +30,17 @@ test('direct desktop needs no model, windows restore and project filters work', 
   await expect(page.locator('[data-window="about"]')).toHaveCount(1);
   await page.getByRole('button', { name: 'Close About me' }).click();
   await page.getByRole('button', { name: 'Open Projects', exact: true }).click();
-  await page.getByRole('button', { name: 'Game', exact: true }).click();
-  await expect(page.getByText('No projects here yet.')).toBeVisible();
+  await page.getByRole('textbox', { name: 'Search projects' }).fill('no-such-project');
+  await expect(page.getByText('No matching projects.')).toBeVisible();
   await page.getByRole('button', { name: 'Reset filters' }).click();
-  await page.getByRole('button', { name: /CURRENT PROJECT.*Personal Workspace/ }).click();
-  await expect(page.getByRole('dialog', { name: 'Personal Workspace' })).toBeVisible();
-  expect(modelRequests).toHaveLength(0);
+  await page.getByRole('button', { name: /AI Chatbot SaaS.*DonBotify/ }).click();
+  await expect(page.getByRole('dialog', { name: /DonBotify/ })).toBeVisible();
+  await expect(page).toHaveURL('http://127.0.0.1:3000/');
 });
 
 test('terminal, settings and deep links survive direct navigation', async ({ page }) => {
-  await page.goto('/os/?app=terminal');
+  await openFallback(page);
+  await page.getByRole('button', { name: 'Open Terminal', exact: true }).click();
   const input = page.getByRole('textbox', { name: 'Terminal command' });
   await input.fill('help'); await input.press('Enter');
   await expect(page.getByText('Available commands:', { exact: false })).toBeVisible();
@@ -31,6 +50,7 @@ test('terminal, settings and deep links survive direct navigation', async ({ pag
   await page.getByRole('switch', { name: 'Reduce motion' }).click();
   await expect(page.getByRole('switch', { name: 'Reduce motion' })).toBeChecked();
   await page.reload();
+  await page.getByRole('button', { name: 'Open profile', exact: true }).click();
   await page.getByRole('button', { name: 'Open Settings', exact: true }).click();
   await expect(page.getByRole('switch', { name: 'Reduce motion' })).toBeChecked();
 });
@@ -54,7 +74,7 @@ test('zoom shortcut stays in the room and preserves opened apps', async ({ page 
 
 test('mobile windows fit screen and all apps are reachable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/os/');
+  await openFallback(page);
   for (const title of ['About me', 'Projects', 'Experience', 'Tech stack', 'Gallery', 'Terminal', 'Contact', 'Settings']) {
     await page.getByRole('button', { name: `Open ${title}`, exact: true }).click();
     const dialog = page.getByRole('dialog', { name: title, exact: true }); await expect(dialog).toBeVisible();
@@ -158,6 +178,6 @@ test('WebGL and model failure have direct profile fallback', async ({ page }) =>
   await page.addInitScript(() => { const original = HTMLCanvasElement.prototype.getContext; HTMLCanvasElement.prototype.getContext = function(this: HTMLCanvasElement, type: string, ...args: unknown[]) { if (type === 'webgl2') return null; return original.apply(this, [type, ...args] as Parameters<typeof original>); } as typeof original; });
   await page.goto('/');
   await expect(page.getByText('3D isn’t available here.')).toBeVisible();
-  await page.getByRole('link', { name: 'Open Profile →' }).click();
+  await page.getByRole('button', { name: 'Open profile', exact: true }).click();
   await expect(page.getByRole('main', { name: 'DongOS desktop' })).toBeVisible();
 });

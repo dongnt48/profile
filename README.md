@@ -25,7 +25,7 @@ Dự án website portfolio cá nhân tương tác lấy cảm hứng từ không
     7. **Contact**: Sao chép nhanh địa chỉ email và liên kết mạng xã hội.
     8. **Settings**: Bật/tắt âm thanh giao diện (Web Audio synth), chế độ giảm chuyển động (`Reduce motion`), và đổi hình nền Desktop.
 - **Truy cập trực tiếp & Khả năng tương thích cao**:
-  - Đường dẫn trực tiếp `/os` mở ngay giao diện Desktop thuần DOM mà **không cần tải mô hình 3D hay WebGL**, đảm bảo tốc độ tức thì trên mọi thiết bị.
+  - Trải nghiệm dùng duy nhất đường dẫn `/`; zoom vào monitor để sử dụng profile. Khi WebGL gặp lỗi, nút mở hồ sơ hiển thị Desktop ngay tại `/`.
   - Tự động hiển thị giao diện fallback thân thiện nếu trình duyệt không hỗ trợ WebGL2.
   - Tối ưu hiển thị full-screen gọn gàng trên thiết bị di động.
 
@@ -33,7 +33,7 @@ Dự án website portfolio cá nhân tương tác lấy cảm hứng từ không
 
 ## 📸 Hình ảnh giao diện
 
-| Không gian 3D (` / `) | Màn hình Desktop (` /os `) |
+| Không gian 3D (` / `) | Màn hình Desktop trong phòng |
 | :---: | :---: |
 | ![3D Room](docs/screenshots/room.png) | ![Desktop](docs/screenshots/desktop.png) |
 
@@ -68,7 +68,6 @@ npm run dev
 ```
 Truy cập:
 - Trải nghiệm 3D đầy đủ: [http://127.0.0.1:3000](http://127.0.0.1:3000)
-- Truy cập thẳng hệ điều hành DongOS: [http://127.0.0.1:3000/os](http://127.0.0.1:3000/os)
 
 ### 3. Kiểm tra kiểu dữ liệu & Chạy kiểm thử (Tests)
 ```bash
@@ -94,10 +93,10 @@ Sau khi chạy lệnh trên, toàn bộ website tĩnh sẽ được xuất ra t�
 
 Toàn bộ dữ liệu hiển thị trong các ứng dụng của **DongOS** được tách biệt hoàn toàn tại thư mục `src/data/`:
 
-- **`src/data/profile.ts`**: Chỉnh sửa tên, chức danh, câu giới thiệu (`bio`), địa chỉ email, link CV và các liên kết mạng xã hội (GitHub, LinkedIn, X...).
-- **`src/data/projects.ts`**: Thêm, sửa hoặc xóa các dự án trong portfolio (mô tả, công nghệ sử dụng, vai trò, tính năng chính, link live demo và source code).
-- **`src/data/experience.ts`**: Cập nhật lịch sử làm việc, tên công ty, khoảng thời gian và các thành tựu đạt được.
-- **`src/data/skills.ts`**: Cập nhật danh sách kỹ năng và công cụ theo từng nhóm chuyên môn.
+- **`src/data/profile.ts`**: Tên, chức danh, email, điện thoại và vị trí theo CV.
+- **`src/data/cv/en.json`** và **`vi.json`**: Nội dung CV tiếng Anh/Việt; các app lấy dữ liệu từ hai file này.
+- **`src/lib/i18n.ts`**: Bản dịch giao diện. Nút EN/VI lưu lựa chọn trên thiết bị.
+- Xem hướng dẫn cập nhật và xuất CV tại [docs/cv-content.md](docs/cv-content.md).
 - **`public/images/`**: Thay thế hình ảnh trong ứng dụng Gallery hoặc hình nền.
 
 ---

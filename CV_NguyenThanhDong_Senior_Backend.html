@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CV - Nguyễn Thanh Đông - Software Developer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --primary-subtle: #eff6ff;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --bg-pill: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      background-color: #f8fafc;
+      line-height: 1.45;
+      font-size: 13px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* A4 Page Container */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 16mm 18mm;
+      margin: 20px auto;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+      }
+
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+        padding: 14mm 16mm;
+      }
+
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* Print control button */
+    .print-bar {
+      max-width: 210mm;
+      margin: 15px auto 0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-print {
+      background: var(--primary-light);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-print:hover {
+      background: var(--primary);
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .name {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+    }
+
+    .title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-top: 2px;
+      letter-spacing: 0.2px;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .contact-item a {
+      color: var(--primary-light);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 13px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 14px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+      font-size: 12.5px;
+    }
+
+    .skill-row {
+      display: flex;
+      line-height: 1.4;
+    }
+
+    .skill-cat {
+      width: 195px;
+      font-weight: 600;
+      color: var(--text-main);
+      flex-shrink: 0;
+    }
+
+    .skill-val {
+      color: var(--text-muted);
+      flex-grow: 1;
+    }
+
+    /* Work Experience Blocks */
+    .job-block {
+      margin-bottom: 11px;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3px;
+    }
+
+    .job-role {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .job-company {
+      color: var(--primary-light);
+      font-weight: 600;
+    }
+
+    .job-date {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    .job-tagline {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    /* Projects inside jobs */
+    .project-card {
+      background: #fafafa;
+      border-left: 3px solid var(--primary-light);
+      padding: 6px 10px;
+      border-radius: 0 4px 4px 0;
+      margin: 6px 0;
+    }
+
+    .project-title {
+      font-weight: 600;
+      font-size: 12.5px;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-tech {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 1px;
+      margin-bottom: 3px;
+    }
+
+    ul.bullet-list {
+      padding-left: 17px;
+      margin-top: 3px;
+    }
+
+    ul.bullet-list li {
+      margin-bottom: 3.5px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    ul.bullet-list li strong {
+      color: var(--text-main);
+    }
+
+    .badge-live {
+      background: #10b981;
+      color: white;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-left: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .page-footer {
+      position: absolute;
+      bottom: 10mm;
+      left: 18mm;
+      right: 18mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      padding-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Controls -->
+  <div class="print-bar no-print">
+    <button class="btn-print" onclick="window.print()">
+      🖨️ In hoặc Lưu file PDF (Ctrl + P)
+    </button>
+  </div>
+
+  <!-- ==================== TRANG 1 ==================== -->
+  <div class="page">
+    <header class="header">
+      <h1 class="name">Nguyễn Thanh Đông</h1>
+      <div class="title">SOFTWARE DEVELOPER</div>
+      <div class="contact-grid">
+        <div class="contact-item">📧 <a href="mailto:dongnt48@gmail.com">dongnt48@gmail.com</a></div>
+        <div class="contact-item">📱 <strong>0847793939</strong></div>
+        <div class="contact-item">🔗 <a href="#" target="_blank">Link Profile (cập nhật sau)</a></div>
+        <div class="contact-item">📍 Cần Thơ / TP. Hồ Chí Minh (Sẵn sàng làm việc Remote hoặc On-site)</div>
+      </div>
+    </header>
+
+    <!-- Tóm tắt chuyên môn -->
+    <section class="section">
+      <div class="section-title">Tóm tắt chuyên môn</div>
+      <div style="font-size: 12.5px; line-height: 1.5; color: var(--text-muted);">
+        <p style="margin-bottom: 6px;">Software Developer có kinh nghiệm phát triển phần mềm, tập trung vào xây dựng hệ
+          thống quản lý doanh nghiệp, thiết kế cơ sở dữ liệu, phát triển API và tích hợp các nền tảng bên thứ ba. Có
+          kinh nghiệm làm việc với PHP, Node.js/NestJS, MySQL và PostgreSQL, đồng thời từng tham gia phát triển các hệ
+          thống CRM, tự động hóa quy trình và giải quyết những bài toán nghiệp vụ phức tạp.</p>
+        <p>Có khả năng phân tích yêu cầu, thiết kế giải pháp và phát triển các sản phẩm phần mềm trong lĩnh vực CRM, HRM
+          và ứng dụng AI. Luôn chủ động nghiên cứu công nghệ mới, ứng dụng các công cụ AI nhằm nâng cao hiệu quả phát
+          triển và chất lượng sản phẩm, hướng đến việc xây dựng những hệ thống có tính ổn định, khả năng mở rộng và đáp
+          ứng hiệu quả nhu cầu thực tế của doanh nghiệp.</p>
+      </div>
+    </section>
+
+    <!-- Kỹ năng chuyên môn -->
+    <section class="section">
+      <div class="section-title">Kỹ năng chuyên môn</div>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <span class="skill-cat">Backend:</span>
+          <span class="skill-val">Node.js, NestJS (RESTful API), PHP (Laravel, CodeIgniter, Vtiger Core).</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Frontend:</span>
+          <span class="skill-val">React, Next.js, jQuery, Smarty.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Cơ sở dữ liệu:</span>
+          <span class="skill-val">MySQL, PostgreSQL, Redis, Prisma ORM.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">AI & Automation:</span>
+          <span class="skill-val">Tích hợp LLM API, AI Agent, AI Chatbot, RAG, Vector Search, Tool Calling, Workflow
+            Automation.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Tích hợp hệ thống:</span>
+          <span class="skill-val">Facebook Graph API, Zalo OA/ZNS, Telegram Bot API, SePay, MQTT/IoT.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Công cụ & Môi trường:</span>
+          <span class="skill-val">Git, Docker, Linux Server, Nginx, Postman.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kinh nghiệm làm việc phần 1 -->
+    <section class="section">
+      <div class="section-title">Kinh nghiệm làm việc & Dự án trọng điểm</div>
+
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Freelance & Independent Projects</span>
+          </div>
+          <span class="job-date">09/2025 – Hiện tại</span>
+        </div>
+
+        <!-- Project 1: DonBotify -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>DonBotify — Nền tảng SaaS Trợ lý ảo AI & Chăm sóc khách hàng Đa kênh</span>
+            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">AI Chatbot SaaS</span>
+          </div>
+          <div class="project-tech">NestJS REST API (/api/v1), Next.js, PostgreSQL, Redis, Socket.IO, S3 (SeaweedFS),
+            Python (Docling)</div>
+          <ul class="bullet-list">
+            <li>Xây dựng kiến trúc quản lý nhiều cửa hàng và chatbot với cấu hình, dữ liệu và kho kiến thức độc lập.
+            </li>
+            <li>Tích hợp LLM và Knowledge Base ứng dụng RAG, Embedding, Vector Search để chatbot khai thác thông tin sản
+              phẩm, tài liệu và hỗ trợ tư vấn theo ngữ cảnh.</li>
+            <li>Phát triển Unified Inbox, tích hợp Website Chat Widget, Facebook Fanpage và Zalo cá nhân.</li>
+            <li>Tích hợp thanh toán tự động qua SePay Webhooks để quản lý gói dịch vụ (Subscription Billing).</li>
+          </ul>
+        </div>
+
+        <!-- Project 2: CRM Logistics tích hợp AI Agent -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>CRM Logistics tích hợp AI Agent</span>
+            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">Logistics CRM & AI
+              Agent</span>
+          </div>
+          <div class="project-tech">NestJS, Next.js, PostgreSQL (pgvector), Redis, Prisma, LangGraph, Python (Docling),
+            Docker, Nginx, Vitest, Playwright
+          </div>
+          <ul class="bullet-list">
+            <li>Phát triển các module quản lý khách hàng, Sales Pipeline, báo giá, booking, chứng từ, vận chuyển và
+              thanh toán.</li>
+            <li>Xây dựng quy trình xử lý nghiệp vụ liên kết giữa các bộ phận kinh doanh, vận hành và kế toán.</li>
+            <li>Phát triển hệ thống phân quyền RBAC, Audit Logs, Dashboard và báo cáo KPI.</li>
+            <li>Tích hợp AI Agent với hệ thống CRM, hỗ trợ truy vấn thông tin và thực hiện các tác vụ nghiệp vụ thông
+              qua Tool Calling.</li>
+            <li>Xây dựng Knowledge Base ứng dụng RAG, Embedding và Vector Search để truy xuất dữ liệu phục vụ AI.</li>
+            <li>Sử dụng LangGraph điều phối các bước xử lý của AI Agent, kết hợp cơ chế phân quyền và xác nhận trước khi
+              thực hiện thao tác thay đổi dữ liệu.</li>
+            <li>Ứng dụng Background Jobs và Queue Workers để xử lý các tác vụ bất đồng bộ.</li>
+          </ul>
+        </div>
+
+        <!-- Project 3: ApproveGram -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>ApproveGram — Hệ thống Quản trị Nhân sự (HRM) & Phê duyệt Quy trình</span>
+            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">HRM & Workflow
+              Automation</span>
+          </div>
+          <div class="project-tech">NestJS, React (Vite), PostgreSQL, Prisma, Telegram Bot (grammy) & Mini App, Swagger,
+            Vitest</div>
+          <ul class="bullet-list">
+            <li>Thiết kế và phát triển các module HRM: quản lý nhân viên, phòng ban, ca làm việc, giao việc, báo cáo
+              ngày và chấm công qua Webhook.</li>
+            <li>Xây dựng Workflow Engine hỗ trợ cấu hình quy trình trực quan bằng các node, điều kiện rẽ nhánh, phê
+              duyệt nhiều bước, gửi thông báo và cập nhật dữ liệu nghiệp vụ.</li>
+            <li>Phát triển module tính lương dựa trên dữ liệu chấm công, tăng ca, phụ cấp và khấu trừ.</li>
+            <li>Tích hợp Telegram Bot (grammy) và Mini App, hỗ trợ nhân viên chấm công, gửi yêu cầu, quản lý công việc,
+              tra cứu phiếu lương và tương tác trực tiếp với các bước phê duyệt.</li>
+            <li>Thiết kế phân quyền RBAC, bảo mật JWT + Argon2, Rate Limiting và kiểm thử tự động với Vitest.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="page-footer">
+      <span>Nguyễn Thanh Đông — CV Software Developer</span>
+      <span>Trang 1 / 2</span>
+    </div>
+  </div>
+
+  <!-- ==================== TRANG 2 ==================== -->
+  <div class="page page-break">
+    <section class="section" style="margin-top: 0;">
+
+      <!-- Project 4: EDU CRM -->
+      <div class="project-card" style="margin-top: 0; margin-bottom: 12px;">
+        <div class="project-title">
+          <span>EDU CRM</span>
+          <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">Education CRM</span>
+        </div>
+        <div class="project-tech">NestJS, Next.js, PostgreSQL 16, Redis 7 (BullMQ), Prisma, Tailwind CSS, shadcn/ui,
+          Docker, Nginx, Vitest</div>
+        <ul class="bullet-list">
+          <li>Phát triển các module quản lý tuyển sinh và đào tạo: Leads, lịch chăm sóc (Follow-ups), học viên, phụ
+            huynh, lớp học, ghi danh, chuyển lớp và thanh toán học phí.</li>
+          <li>Xây dựng cơ chế phân công tư vấn, chống trùng lead, thông báo tự động và xử lý hàng đợi bất đồng bộ với
+            BullMQ & Redis.</li>
+          <li>Phát triển hệ thống phân quyền RBAC, nhật ký đăng nhập (Login Logs), báo cáo thống kê và xuất dữ liệu
+            Excel (ExcelJS).</li>
+          <li>Thiết kế bảo mật JWT với Refresh Token xoay vòng (Argon2, Helmet) và kiểm thử tự động Unit/E2E với Vitest
+            & Supertest.</li>
+        </ul>
+      </div>
+
+      <!-- INNOCOM -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Lập trình viên Phần mềm (Software Developer)</span> — <span
+              class="job-company">Innocom</span>
+          </div>
+          <span class="job-date">09/2022 – 06/2025</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Tham gia phát triển, mở rộng và bảo trì sản phẩm CRM riêng của công ty dựa trên Vtiger Core, tập trung vào
+            quản lý nghiệp vụ, tự động hóa quy trình và tích hợp hệ thống.</li>
+          <li>Thiết kế và phát triển các module nghiệp vụ, xử lý logic và mở rộng chức năng của hệ thống CRM.</li>
+          <li>Xây dựng Customizer Framework giúp phát triển và tùy chỉnh chức năng mà không cần can thiệp trực tiếp vào
+            mã nguồn lõi, nâng cao khả năng bảo trì và mở rộng hệ thống.</li>
+          <li>Phát triển các quy trình tự động hóa như Approval, Routing, SLA và Notifications, giúp <strong>giảm khoảng
+              60–70% thời gian xử lý Lead</strong>.</li>
+          <li>Xây dựng hệ thống Job Queue phục vụ xử lý tác vụ nền và tự động hóa nghiệp vụ, <strong>giảm khoảng 90% lỗi
+              thao tác thủ công</strong>.</li>
+          <li>Tích hợp Facebook Ads, Zalo Ads, Zalo OA và Telegram, hỗ trợ đồng bộ dữ liệu và kết nối các kênh giao tiếp
+            với CRM.</li>
+          <li>Phát triển Live Chat đa kênh, tích hợp Facebook Page và Zalo OA, giúp <strong>giảm khoảng 80% thời gian
+              phản hồi khách hàng</strong>.</li>
+          <li>Phát triển và mở rộng các chức năng CRM phục vụ lĩnh vực giáo dục, logistics và du lịch.</li>
+          <li><strong>Công nghệ:</strong> PHP, JavaScript, Node.js, MySQL, jQuery, Smarty, REST API, Webhooks, Git.</li>
+        </ul>
+      </div>
+
+      <!-- FE CREDIT -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Lập trình viên Phần mềm (Dự án Outsource)</span> — <span class="job-company">FE
+              Credit</span>
+          </div>
+          <span class="job-date">10/2024 – 03/2025</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Mở rộng chức năng CRM sử dụng Vtiger Customizer.</li>
+          <li>Phát triển các module nghiệp vụ và workflow tự động hóa.</li>
+          <li>Xử lý yêu cầu thay đổi chức năng và tối ưu hiệu năng hệ thống.</li>
+          <li>Tư vấn kỹ thuật và xây dựng tài liệu phục vụ đội ngũ vận hành.</li>
+          <li><strong>Công nghệ:</strong> PHP, Vtiger CRM Core, MySQL, REST API, Linux Server.</li>
+        </ul>
+      </div>
+
+      <!-- A.D.A -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Lập trình viên Phần mềm (Software Developer)</span> — <span
+              class="job-company">A.D.A</span>
+          </div>
+          <span class="job-date">04/2021 – 09/2021</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Tham gia phát triển hệ thống quản lý và giám sát dữ liệu phương tiện giao thông (định vị GPS, tiêu hao
+            nhiên liệu, nhiệt độ thùng hàng lạnh, cảm biến tải trọng).</li>
+          <li>Tích hợp các thiết bị phần cứng IoT (camera giám sát, cảm biến) với máy chủ backend qua RESTful APIs, bảo
+            đảm dữ liệu truyền nhận theo thời gian thực ổn định và chính xác.</li>
+          <li><strong>Công nghệ:</strong> PHP (CodeIgniter), JavaScript, Node.js, jQuery, REST API, MySQL, Git.
+          </li>
+        </ul>
+      </div>
+
+      <!-- VNPT AN GIANG -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Thực tập sinh R&D IoT</span> — <span class="job-company">VNPT An Giang</span>
+          </div>
+          <span class="job-date">08/2020 – 11/2020</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Nghiên cứu và triển khai dự án “Hệ thống Giám sát & Điều khiển Vườn thông minh (HydroGarden)”.</li>
+          <li>Thu thập dữ liệu cảm biến đa thông số (nhiệt độ, độ ẩm, ánh sáng, độ ẩm đất) lưu trữ cơ sở dữ liệu; xây
+            dựng ứng dụng web điều khiển từ xa các thiết bị phần cứng (bơm nước, đèn quang hợp, van servo).</li>
+          <li>Ứng dụng giao thức MQTT phục vụ trao đổi dữ liệu tốc độ cao, tích hợp tính năng cập nhật
+            firmware từ xa (OTA) không cần can thiệp thủ công vào thiết bị.</li>
+          <li><strong>Công nghệ:</strong> MQTT, Arduino IDE/C++, Node.js, JavaScript, MySQL, REST API.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <div class="page-footer">
+      <span>Nguyễn Thanh Đông — CV Software Developer</span>
+      <span>Trang 2 / 2</span>
+    </div>
+  </div>
+
+</body>
+
+</html>

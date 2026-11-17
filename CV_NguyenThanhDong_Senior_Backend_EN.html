@@ -1,0 +1,536 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <title>CV - Nguyễn Thanh Đông - Software Developer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --primary-subtle: #eff6ff;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --bg-pill: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      background-color: #f8fafc;
+      line-height: 1.45;
+      font-size: 13px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* A4 Page Container */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 16mm 18mm;
+      margin: 20px auto;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+      }
+
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+        padding: 14mm 16mm;
+      }
+
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* Print control button */
+    .print-bar {
+      max-width: 210mm;
+      margin: 15px auto 0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-print {
+      background: var(--primary-light);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-print:hover {
+      background: var(--primary);
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .name {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+    }
+
+    .title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-top: 2px;
+      letter-spacing: 0.2px;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .contact-item a {
+      color: var(--primary-light);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 13px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 14px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+      font-size: 12.5px;
+    }
+
+    .skill-row {
+      display: flex;
+      line-height: 1.4;
+    }
+
+    .skill-cat {
+      width: 195px;
+      font-weight: 600;
+      color: var(--text-main);
+      flex-shrink: 0;
+    }
+
+    .skill-val {
+      color: var(--text-muted);
+      flex-grow: 1;
+    }
+
+    /* Work Experience Blocks */
+    .job-block {
+      margin-bottom: 11px;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3px;
+    }
+
+    .job-role {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .job-company {
+      color: var(--primary-light);
+      font-weight: 600;
+    }
+
+    .job-date {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    .job-tagline {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    /* Projects inside jobs */
+    .project-card {
+      background: #fafafa;
+      border-left: 3px solid var(--primary-light);
+      padding: 6px 10px;
+      border-radius: 0 4px 4px 0;
+      margin: 6px 0;
+    }
+
+    .project-title {
+      font-weight: 600;
+      font-size: 12.5px;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-tech {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 1px;
+      margin-bottom: 3px;
+    }
+
+    ul.bullet-list {
+      padding-left: 17px;
+      margin-top: 3px;
+    }
+
+    ul.bullet-list li {
+      margin-bottom: 3.5px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    ul.bullet-list li strong {
+      color: var(--text-main);
+    }
+
+    .badge-live {
+      background: #10b981;
+      color: white;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-left: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .page-footer {
+      position: absolute;
+      bottom: 10mm;
+      left: 18mm;
+      right: 18mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      padding-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Controls -->
+  <div class="print-bar no-print">
+    <button class="btn-print" onclick="window.print()">🖨️ Print or Save as PDF (Ctrl + P)</button>
+  </div>
+
+  <!-- ==================== TRANG 1 ==================== -->
+  <div class="page">
+    <header class="header">
+      <h1 class="name">Nguyễn Thanh Đông</h1>
+      <div class="title">SOFTWARE DEVELOPER</div>
+      <div class="contact-grid">
+        <div class="contact-item">📧 <a href="mailto:dongnt48@gmail.com">dongnt48@gmail.com</a></div>
+        <div class="contact-item">📱 <strong>0847793939</strong></div>
+        <div class="contact-item">🔗 <a href="#" target="_blank">Profile Link (to be updated)</a></div>
+        <div class="contact-item">📍 Cần Thơ / Ho Chi Minh City (Available for Remote or On-site Work)</div>
+      </div>
+    </header>
+
+    <!-- Tóm tắt chuyên môn -->
+    <section class="section">
+      <div class="section-title">Professional Summary</div>
+      <div style="font-size: 12.5px; line-height: 1.5; color: var(--text-muted);">
+        <p style="margin-bottom: 6px;">Software Developer with experience in software development, focusing on building enterprise management systems, database design, API development, and third-party platform integrations. Experienced in PHP, Node.js/NestJS, MySQL, and PostgreSQL, with involvement in developing CRM systems, automating workflows, and solving complex business problems.</p>
+        <p>Able to analyze requirements, design solutions, and develop software products in CRM, HRM, and AI applications. Proactively researches new technologies and applies AI tools to improve development efficiency and product quality, with a focus on building stable, scalable systems that effectively meet real business needs.</p>
+      </div>
+    </section>
+
+    <!-- Kỹ năng chuyên môn -->
+    <section class="section">
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <span class="skill-cat">Backend:</span>
+          <span class="skill-val">Node.js, NestJS (RESTful API), PHP (Laravel, CodeIgniter, Vtiger Core).</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Frontend:</span>
+          <span class="skill-val">React, Next.js, jQuery, Smarty.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Databases:</span>
+          <span class="skill-val">MySQL, PostgreSQL, Redis, Prisma ORM.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">AI &amp; Automation:</span>
+          <span class="skill-val">LLM API integration, AI Agent, AI Chatbot, RAG, Vector Search, Tool Calling, Workflow Automation.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">System Integrations:</span>
+          <span class="skill-val">Facebook Graph API, Zalo OA/ZNS, Telegram Bot API, SePay, MQTT/IoT.</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Tools &amp; Environment:</span>
+          <span class="skill-val">Git, Docker, Linux Server, Nginx, Postman.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kinh nghiệm làm việc phần 1 -->
+    <section class="section">
+      <div class="section-title">Work Experience &amp; Key Projects</div>
+
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Freelance &amp; Independent Projects</span>
+          </div>
+          <span class="job-date">09/2025 – Present</span>
+        </div>
+
+        <!-- Project 1: DonBotify -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>DonBotify — AI Virtual Assistant &amp; Omnichannel Customer Support SaaS Platform</span>
+            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">AI Chatbot SaaS</span>
+          </div>
+          <div class="project-tech">NestJS REST API (/api/v1), Next.js, PostgreSQL, Redis, Socket.IO, S3 (SeaweedFS),
+            Python (Docling)</div>
+          <ul class="bullet-list">
+            <li>Built an architecture for managing multiple stores and chatbots with independent configurations, data, and knowledge bases.</li>
+            <li>Integrated LLMs and a Knowledge Base using RAG, Embedding, and Vector Search to enable chatbots to access product information and documents and provide context-aware assistance.</li>
+            <li>Developed a Unified Inbox integrating a Website Chat Widget, Facebook Fanpage, and personal Zalo accounts.</li>
+            <li>Integrated automated payments through SePay Webhooks to manage service subscriptions (Subscription Billing).</li>
+          </ul>
+        </div>
+
+        <!-- Project 2: CRM Logistics tích hợp AI Agent -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>Logistics CRM with AI Agent Integration</span>
+            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">Logistics CRM &amp; AI Agent</span>
+          </div>
+          <div class="project-tech">NestJS, Next.js, PostgreSQL (pgvector), Redis, Prisma, LangGraph, Python (Docling),
+            Docker, Nginx, Vitest, Playwright
+          </div>
+          <ul class="bullet-list">
+            <li>Developed modules for customer management, Sales Pipeline, quotations, bookings, documents, shipping, and payments.</li>
+            <li>Built interconnected business workflows across sales, operations, and accounting departments.</li>
+            <li>Developed RBAC access control, Audit Logs, Dashboards, and KPI reports.</li>
+            <li>Integrated an AI Agent with the CRM system to support information queries and business tasks through Tool Calling.</li>
+            <li>Built a Knowledge Base using RAG, Embedding, and Vector Search to retrieve data for AI.</li>
+            <li>Used LangGraph to orchestrate AI Agent processing steps, incorporating access control and confirmation before performing data-changing operations.</li>
+            <li>Applied Background Jobs and Queue Workers to handle asynchronous tasks.</li>
+          </ul>
+        </div>
+
+        <!-- Project 3: ApproveGram -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>ApproveGram — Human Resource Management (HRM) &amp; Workflow Approval System</span>
+            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">HRM &amp; Workflow Automation</span>
+          </div>
+          <div class="project-tech">NestJS, React (Vite), PostgreSQL, Prisma, Telegram Bot (grammy) &amp; Mini App, Swagger,
+            Vitest</div>
+          <ul class="bullet-list">
+            <li>Designed and developed HRM modules for managing employees, departments, work shifts, task assignments, daily reports, and attendance through Webhooks.</li>
+            <li>Built a Workflow Engine supporting visual workflow configuration with nodes, branching conditions, multi-step approvals, notifications, and business data updates.</li>
+            <li>Developed a payroll module based on attendance, overtime, allowances, and deductions.</li>
+            <li>Integrated Telegram Bot (grammy) and Mini App, enabling employees to record attendance, submit requests, manage tasks, view payslips, and interact directly with approval steps.</li>
+            <li>Designed RBAC access control, JWT + Argon2 security, Rate Limiting, and automated testing with Vitest.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="page-footer">
+      <span>Nguyễn Thanh Đông — CV Software Developer</span>
+      <span>Page 1 / 2</span>
+    </div>
+  </div>
+
+  <!-- ==================== TRANG 2 ==================== -->
+  <div class="page page-break">
+    <section class="section" style="margin-top: 0;">
+
+      <!-- Project 4: EDU CRM -->
+      <div class="project-card" style="margin-top: 0; margin-bottom: 12px;">
+        <div class="project-title">
+          <span>EDU CRM</span>
+          <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">Education CRM</span>
+        </div>
+        <div class="project-tech">NestJS, Next.js, PostgreSQL 16, Redis 7 (BullMQ), Prisma, Tailwind CSS, shadcn/ui,
+          Docker, Nginx, Vitest</div>
+        <ul class="bullet-list">
+          <li>Developed enrollment and training management modules for Leads, Follow-ups, students, parents, classes, enrollment, class transfers, and tuition payments.</li>
+          <li>Built mechanisms for assigning counselors, preventing duplicate leads, sending automated notifications, and processing asynchronous queues with BullMQ &amp; Redis.</li>
+          <li>Developed RBAC access control, Login Logs, statistical reports, and Excel data exports (ExcelJS).</li>
+          <li>Designed JWT security with rotating Refresh Tokens (Argon2, Helmet) and automated Unit/E2E testing with Vitest &amp; Supertest.</li>
+        </ul>
+      </div>
+
+      <!-- INNOCOM -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Software Developer</span> — <span class="job-company">Innocom</span>
+          </div>
+          <span class="job-date">09/2022 – 06/2025</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Contributed to developing, extending, and maintaining the company's proprietary CRM product based on Vtiger Core, focusing on business process management, workflow automation, and system integration.</li>
+          <li>Designed and developed business modules, implemented logic, and extended CRM system functionality.</li>
+          <li>Built a Customizer Framework to develop and customize functionality without directly modifying the core source code, improving system maintainability and extensibility.</li>
+          <li>Developed automated workflows such as Approval, Routing, SLA, and Notifications, <strong>reducing Lead processing time by approximately 60–70%</strong>.</li>
+          <li>Built a Job Queue system for background processing and business automation, <strong>reducing manual operation errors by approximately 90%</strong>.</li>
+          <li>Integrated Facebook Ads, Zalo Ads, Zalo OA, and Telegram to synchronize data and connect communication channels with the CRM.</li>
+          <li>Developed omnichannel Live Chat integrating Facebook Page and Zalo OA, <strong>reducing customer response time by approximately 80%</strong>.</li>
+          <li>Developed and extended CRM functionality for education, logistics, and tourism.</li>
+          <li><strong>Technologies:</strong> PHP, JavaScript, Node.js, MySQL, jQuery, Smarty, REST API, Webhooks, Git.</li>
+        </ul>
+      </div>
+
+      <!-- FE CREDIT -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Software Developer (Outsourced Project)</span> — <span class="job-company">FE
+              Credit</span>
+          </div>
+          <span class="job-date">10/2024 – 03/2025</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Extended CRM functionality using Vtiger Customizer.</li>
+          <li>Developed business modules and automated workflows.</li>
+          <li>Handled functional change requests and optimized system performance.</li>
+          <li>Provided technical consultation and created documentation for the operations team.</li>
+          <li><strong>Technologies:</strong> PHP, Vtiger CRM Core, MySQL, REST API, Linux Server.</li>
+        </ul>
+      </div>
+
+      <!-- A.D.A -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">Software Developer</span> — <span class="job-company">A.D.A</span>
+          </div>
+          <span class="job-date">04/2021 – 09/2021</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Contributed to developing a system for managing and monitoring vehicle data (GPS location, fuel consumption, refrigerated cargo compartment temperature, and load sensors).</li>
+          <li>Integrated IoT hardware devices (surveillance cameras and sensors) with the backend server through RESTful APIs, ensuring stable and accurate real-time data transmission.</li>
+          <li><strong>Technologies:</strong> PHP (CodeIgniter), JavaScript, Node.js, jQuery, REST API, MySQL, Git.</li>
+        </ul>
+      </div>
+
+      <!-- VNPT AN GIANG -->
+      <div class="job-block">
+        <div class="job-header">
+          <div>
+            <span class="job-role">IoT R&amp;D Intern</span> — <span class="job-company">VNPT An Giang</span>
+          </div>
+          <span class="job-date">08/2020 – 11/2020</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Researched and implemented the “Smart Garden Monitoring &amp; Control System (HydroGarden)” project.</li>
+          <li>Collected multi-parameter sensor data (temperature, humidity, light, and soil moisture) for database storage; built a web application to remotely control hardware devices (water pumps, grow lights, and servo valves).</li>
+          <li>Applied the MQTT protocol for high-speed data exchange and integrated over-the-air (OTA) firmware updates without manual intervention on the devices.</li>
+          <li><strong>Technologies:</strong> MQTT, Arduino IDE/C++, Node.js, JavaScript, MySQL, REST API.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <div class="page-footer">
+      <span>Nguyễn Thanh Đông — CV Software Developer</span>
+      <span>Page 2 / 2</span>
+    </div>
+  </div>
+
+
+
+</body></html>

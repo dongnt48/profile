@@ -260,14 +260,14 @@ type WindowState = {
 
 ### URL
 - `/`: Welcome + 3D Room.
-- `/os`: Direct-access Desktop OS (bỏ qua intro / fallback).
-- Có thể dùng query hoặc state để mở trực tiếp ứng dụng về sau, ví dụ `/os?app=projects`.
+- Chỉ dùng `/`: profile hoạt động trên monitor trong phòng; khi WebGL lỗi, mở giao diện HTML tại cùng đường dẫn.
+- Các ứng dụng được mở bằng state trong cùng trang.
 - Deep links phải hoạt động khi refresh.
 
 ### Quy tắc chuyển trạng thái
 - `entering-os` và `leaving-os` phải chống click lặp.
 - Khóa/unlock controls đúng thời điểm.
-- Nếu chưa tải được 3D hoặc WebGL lỗi, có CTA `Open Profile` dẫn tới `/os`.
+- Nếu WebGL lỗi, CTA `Open Profile` mở giao diện HTML tại `/`.
 - State OS tồn tại trong client session khi quay lại phòng, không bắt buộc persist lâu dài.
 
 ## 9. Cấu trúc repo
@@ -354,7 +354,7 @@ personal-workspace/
 - Contrast đủ tốt, focus styles rõ.
 - Reduce motion.
 - Tắt âm thanh mặc định nếu cần; bật qua tương tác của người dùng.
-- Bản `/os` có thể truy cập trực tiếp không cần WebGL.
+- Khi không có WebGL, có thể mở profile HTML ngay tại `/`.
 
 ## 11. Tối ưu hiệu năng
 
@@ -408,7 +408,7 @@ personal-workspace/
 5. Desktop OS có app, taskbar, hệ thống cửa sổ hoạt động trên desktop.
 6. Các mục About, Projects, Experience, Skills, Contact có nội dung thật hoặc placeholder được đánh dấu rõ để thay thế.
 7. Nút Back to Room hoạt động mà không reload bắt buộc.
-8. Truy cập `/os` trực tiếp được, kể cả khi không chạy được 3D.
+8. Khi không chạy được 3D, có thể mở profile HTML tại `/`.
 9. Mobile dùng được và không phụ thuộc hover/drag.
 10. Không bắt buộc backend, database hoặc CMS.
 
@@ -427,7 +427,7 @@ personal-workspace/
 
 1. **OS prototype:** Desktop, wallpaper, taskbar, icon; Window Manager (open/focus/minimize/maximize/close/drag); mock profile data; responsive mobile.
 2. **Room prototype:** Dùng cube và các primitive mô phỏng sàn, tường, bàn, monitor, ghế, PC, bể cá; thiết lập camera isometric-perspective và ánh sáng cơ bản.
-3. **Core transition:** Click monitor → GSAP zoom → crossfade → Desktop OS; Back to Room chạy ngược; tránh click lặp; hỗ trợ `/os` direct-link.
+3. **Core transition:** Click monitor → GSAP zoom → crossfade → Desktop OS; Back to Room chạy ngược; tránh click lặp; giữ nguyên đường dẫn `/` trong toàn bộ trải nghiệm.
 4. **Final Blender assets:** Thay blockout bằng model phòng chất lượng cao; bàn, ghế công thái học, laptop, monitor, thùng PC **dưới bàn**, bể cá thủy sinh có cá, cây leo và kệ sách. **Không thêm giường/ván trượt** đã loại khỏi thiết kế.
 5. **Polish:** Cá bơi và hiệu ứng mặt nước đơn giản, quạt PC, LED amber, cây lay nhẹ, baked lighting; kiểm thử mobile và tối ưu tải model.
 6. **Launch:** Điền dữ liệu profile thật, SEO/OG, accessibility, kiểm thử hiệu năng và deploy.

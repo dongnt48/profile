@@ -1,0 +1,108 @@
+{
+  "summary": [
+    "Software Developer with experience in software development, focusing on building enterprise management systems, database design, API development, and third-party platform integrations. Experienced in PHP, Node.js/NestJS, MySQL, and PostgreSQL, with involvement in developing CRM systems, automating workflows, and solving complex business problems.",
+    "Able to analyze requirements, design solutions, and develop software products in CRM, HRM, and AI applications. Proactively researches new technologies and applies AI tools to improve development efficiency and product quality, with a focus on building stable, scalable systems that effectively meet real business needs."
+  ],
+  "skills": [
+    { "group": "Backend", "text": "Node.js, NestJS (RESTful API), PHP (Laravel, CodeIgniter, Vtiger Core)." },
+    { "group": "Frontend", "text": "React, Next.js, jQuery, Smarty." },
+    { "group": "Databases", "text": "MySQL, PostgreSQL, Redis, Prisma ORM." },
+    { "group": "AI & Automation", "text": "LLM API integration, AI Agent, AI Chatbot, RAG, Vector Search, Tool Calling, Workflow Automation." },
+    { "group": "System Integrations", "text": "Facebook Graph API, Zalo OA/ZNS, Telegram Bot API, SePay, MQTT/IoT." },
+    { "group": "Tools & Environment", "text": "Git, Docker, Linux Server, Nginx, Postman." }
+  ],
+  "projects": [
+    {
+      "title": "DonBotify — AI Virtual Assistant & Omnichannel Customer Support SaaS Platform",
+      "description": "AI Chatbot SaaS",
+      "tech": "NestJS REST API (/api/v1), Next.js, PostgreSQL, Redis, Socket.IO, S3 (SeaweedFS), Python (Docling)",
+      "features": [
+        "Built an architecture for managing multiple stores and chatbots with independent configurations, data, and knowledge bases.",
+        "Integrated LLMs and a Knowledge Base using RAG, Embedding, and Vector Search to enable chatbots to access product information and documents and provide context-aware assistance.",
+        "Developed a Unified Inbox integrating a Website Chat Widget, Facebook Fanpage, and personal Zalo accounts.",
+        "Integrated automated payments through SePay Webhooks to manage service subscriptions (Subscription Billing)."
+      ]
+    },
+    {
+      "title": "Logistics CRM with AI Agent Integration",
+      "description": "Logistics CRM & AI Agent",
+      "tech": "NestJS, Next.js, PostgreSQL (pgvector), Redis, Prisma, LangGraph, Python (Docling), Docker, Nginx, Vitest, Playwright",
+      "features": [
+        "Developed modules for customer management, Sales Pipeline, quotations, bookings, documents, shipping, and payments.",
+        "Built interconnected business workflows across sales, operations, and accounting departments.",
+        "Developed RBAC access control, Audit Logs, Dashboards, and KPI reports.",
+        "Integrated an AI Agent with the CRM system to support information queries and business tasks through Tool Calling.",
+        "Built a Knowledge Base using RAG, Embedding, and Vector Search to retrieve data for AI.",
+        "Used LangGraph to orchestrate AI Agent processing steps, incorporating access control and confirmation before performing data-changing operations.",
+        "Applied Background Jobs and Queue Workers to handle asynchronous tasks."
+      ]
+    },
+    {
+      "title": "ApproveGram — Human Resource Management (HRM) & Workflow Approval System",
+      "description": "HRM & Workflow Automation",
+      "tech": "NestJS, React (Vite), PostgreSQL, Prisma, Telegram Bot (grammy) & Mini App, Swagger, Vitest",
+      "features": [
+        "Designed and developed HRM modules for managing employees, departments, work shifts, task assignments, daily reports, and attendance through Webhooks.",
+        "Built a Workflow Engine supporting visual workflow configuration with nodes, branching conditions, multi-step approvals, notifications, and business data updates.",
+        "Developed a payroll module based on attendance, overtime, allowances, and deductions.",
+        "Integrated Telegram Bot (grammy) and Mini App, enabling employees to record attendance, submit requests, manage tasks, view payslips, and interact directly with approval steps.",
+        "Designed RBAC access control, JWT + Argon2 security, Rate Limiting, and automated testing with Vitest."
+      ]
+    },
+    {
+      "title": "EDU CRM",
+      "description": "Education CRM",
+      "tech": "NestJS, Next.js, PostgreSQL 16, Redis 7 (BullMQ), Prisma, Tailwind CSS, shadcn/ui, Docker, Nginx, Vitest",
+      "features": [
+        "Developed enrollment and training management modules for Leads, Follow-ups, students, parents, classes, enrollment, class transfers, and tuition payments.",
+        "Built mechanisms for assigning counselors, preventing duplicate leads, sending automated notifications, and processing asynchronous queues with BullMQ & Redis.",
+        "Developed RBAC access control, Login Logs, statistical reports, and Excel data exports (ExcelJS).",
+        "Designed JWT security with rotating Refresh Tokens (Argon2, Helmet) and automated Unit/E2E testing with Vitest & Supertest."
+      ]
+    }
+  ],
+  "experience": [
+    { "role": "Freelance & Independent Projects", "company": "", "period": "09/2025 – Present", "achievements": [] },
+    {
+      "role": "Software Developer", "company": "Innocom", "period": "09/2022 – 06/2025",
+      "achievements": [
+        "Contributed to developing, extending, and maintaining the company's proprietary CRM product based on Vtiger Core, focusing on business process management, workflow automation, and system integration.",
+        "Designed and developed business modules, implemented logic, and extended CRM system functionality.",
+        "Built a Customizer Framework to develop and customize functionality without directly modifying the core source code, improving system maintainability and extensibility.",
+        "Developed automated workflows such as Approval, Routing, SLA, and Notifications, reducing Lead processing time by approximately 60–70%.",
+        "Built a Job Queue system for background processing and business automation, reducing manual operation errors by approximately 90%.",
+        "Integrated Facebook Ads, Zalo Ads, Zalo OA, and Telegram to synchronize data and connect communication channels with the CRM.",
+        "Developed omnichannel Live Chat integrating Facebook Page and Zalo OA, reducing customer response time by approximately 80%.",
+        "Developed and extended CRM functionality for education, logistics, and tourism.",
+        "Technologies: PHP, JavaScript, Node.js, MySQL, jQuery, Smarty, REST API, Webhooks, Git."
+      ]
+    },
+    {
+      "role": "Software Developer (Outsourced Project)", "company": "FE Credit", "period": "10/2024 – 03/2025",
+      "achievements": [
+        "Extended CRM functionality using Vtiger Customizer.",
+        "Developed business modules and automated workflows.",
+        "Handled functional change requests and optimized system performance.",
+        "Provided technical consultation and created documentation for the operations team.",
+        "Technologies: PHP, Vtiger CRM Core, MySQL, REST API, Linux Server."
+      ]
+    },
+    {
+      "role": "Software Developer", "company": "A.D.A", "period": "04/2021 – 09/2021",
+      "achievements": [
+        "Contributed to developing a system for managing and monitoring vehicle data (GPS location, fuel consumption, refrigerated cargo compartment temperature, and load sensors).",
+        "Integrated IoT hardware devices (surveillance cameras and sensors) with the backend server through RESTful APIs, ensuring stable and accurate real-time data transmission.",
+        "Technologies: PHP (CodeIgniter), JavaScript, Node.js, jQuery, REST API, MySQL, Git."
+      ]
+    },
+    {
+      "role": "IoT R&D Intern", "company": "VNPT An Giang", "period": "08/2020 – 11/2020",
+      "achievements": [
+        "Researched and implemented the “Smart Garden Monitoring & Control System (HydroGarden)” project.",
+        "Collected multi-parameter sensor data (temperature, humidity, light, and soil moisture) for database storage; built a web application to remotely control hardware devices (water pumps, grow lights, and servo valves).",
+        "Applied the MQTT protocol for high-speed data exchange and integrated over-the-air (OTA) firmware updates without manual intervention on the devices.",
+        "Technologies: MQTT, Arduino IDE/C++, Node.js, JavaScript, MySQL, REST API."
+      ]
+    }
+  ]
+}

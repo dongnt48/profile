@@ -1,2 +1,4 @@
-import { skills } from '@/data/skills';
-export function SkillsApp() { return <div className="app-padding"><span className="eyebrow">MY DIGITAL TOOLBOX</span><h1>The right tool. A good idea<span className="accent">.</span></h1><p className="body-copy">Các công nghệ được dùng trong workspace này. Đây chưa phải hồ sơ kỹ năng cá nhân đã xác nhận.</p><div className="skill-groups">{skills.map((s, i) => <section key={s.group}><span className="skill-number">0{i + 1}</span><div><h2>{s.group}</h2><p>{s.description}</p><div className="tags">{s.items.map(item => <span key={item}>{item}</span>)}</div></div></section>)}</div></div>; }
+'use client';
+import { getSkills } from '@/data/skills';
+import { useTranslation } from '@/lib/i18n';
+export function SkillsApp() { const { language, t } = useTranslation(); return <div className="app-padding"><h1>{t('Technical Skills')}</h1><div className="skill-groups">{getSkills(language).map((s, i) => <section key={i}><span className="skill-number">0{i + 1}</span><div><h2>{s.group}</h2><p>{s.text}</p></div></section>)}</div></div>; }
