@@ -12,18 +12,17 @@ Dự án website portfolio cá nhân tương tác lấy cảm hứng từ không
   - Thiết kế góc nhìn Isometric Cutaway với chất liệu gỗ Walnut, Olive, Sand và ánh nắng chiều ấm áp.
   - Chi tiết sống động: Bể cá thủy sinh bên trái bàn, thùng PC kính dưới gầm bàn với quạt LED quay, màn hình ultrawide, laptop, ghế công thái học, kệ sách và cây dây leo.
 - **Zoom và thao tác trực tiếp trên màn hình**:
-  - Cuộn chuột hoặc pinch để zoom vào màn hình và sử dụng app ngay trong cảnh 3D, không chuyển sang trang OS. Màn hình dùng cùng một giao diện sống ở cả góc nhìn ngoài và khi zoom vào, giữ nguyên nội dung và cửa sổ; chỉ bật tương tác khi zoom sát. Đèn ScreenBar luôn hiển thị với mặt tán sáng màu trắng, không phát sáng hoặc chiếu ánh sáng xuống bàn. Cuộn trong cửa sổ chỉ cuộn nội dung; nút Back to room đưa camera về phòng.
+  - Cuộn chuột hoặc pinch để zoom vào màn hình và sử dụng app ngay trong cảnh 3D, không chuyển sang trang OS. Màn hình dùng cùng một giao diện sống ở cả góc nhìn ngoài và khi zoom vào, giữ nguyên nội dung và cửa sổ; chỉ bật tương tác khi zoom sát. Đèn ScreenBar luôn hiển thị với mặt tán sáng màu trắng, không phát sáng hoặc chiếu ánh sáng xuống bàn. Cuộn trong cửa sổ chỉ cuộn nội dung; cuộn ra để đưa camera về phòng.
 - **Hệ điều hành Desktop giả lập (DongOS)**:
   - Quản lý đa cửa sổ với **Zustand**: Kéo thả (drag), thu nhỏ (minimize), phóng to (maximize), đóng (close), tự động sắp xếp thứ tự lớp (`z-index`) và giữ cửa sổ luôn trong khung nhìn khi đổi kích thước màn hình.
-  - **8 Ứng dụng tích hợp**:
-    1. **About me**: Giới thiệu bản thân, sở thích, liên kết CV.
-    2. **Projects**: Danh sách dự án lọc theo danh mục (Website, CRM, AI, Game, Experiments) và tìm kiếm từ khóa theo thời gian thực.
+  - **7 Ứng dụng tích hợp**:
+    1. **About me**: Tóm tắt chuyên môn và liên kết CV.
+    2. **Projects**: Danh sách dự án lọc theo danh mục (CRM, AI, HRM) và tìm kiếm từ khóa theo thời gian thực.
     3. **Experience**: Timeline quá trình làm việc và các thành tựu nổi bật.
     4. **Tech stack**: Các nhóm kỹ năng công nghệ được phân loại trực quan.
     5. **Gallery**: Bộ sưu tập hình ảnh kèm chế độ xem phóng to (Lightbox).
-    6. **Terminal**: Dòng lệnh tương tác hỗ trợ gõ lệnh (`help`, `about`, `projects`, `skills`, `contact`, `clear`) và phím mũi tên duyệt lịch sử lệnh.
-    7. **Contact**: Sao chép nhanh địa chỉ email và liên kết mạng xã hội.
-    8. **Settings**: Bật/tắt âm thanh giao diện (Web Audio synth), chế độ giảm chuyển động (`Reduce motion`), và đổi hình nền Desktop.
+    6. **Contact**: Email, điện thoại và địa điểm làm việc theo CV.
+    7. **Settings**: Bật/tắt âm thanh giao diện (Web Audio synth), chế độ giảm chuyển động (`Reduce motion`), và chất lượng đồ họa.
 - **Truy cập trực tiếp & Khả năng tương thích cao**:
   - Trải nghiệm dùng duy nhất đường dẫn `/`; zoom vào monitor để sử dụng profile. Khi WebGL gặp lỗi, nút mở hồ sơ hiển thị Desktop ngay tại `/`.
   - Tự động hiển thị giao diện fallback thân thiện nếu trình duyệt không hỗ trợ WebGL2.

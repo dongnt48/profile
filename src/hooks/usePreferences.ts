@@ -14,7 +14,7 @@ export function useLoadPreferences() {
         sound: value.sound === true,
         reducedMotion: value.reducedMotion === true,
         quality: value.quality === 'low' ? 'low' : 'high',
-        lighting: value.lighting === 'night' ? 'night' : 'day',
+        lighting: 'night',
       });
     } catch {
       /* Use defaults when storage is unavailable. */

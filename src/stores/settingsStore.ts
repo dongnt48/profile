@@ -3,12 +3,10 @@ import { create } from 'zustand';
     sound: boolean;
     reducedMotion: boolean;
     quality: 'low' | 'high';
-    lighting: 'day' | 'night';
+    lighting: 'night';
     setSound: (value: boolean) => void;
     setReducedMotion: (value: boolean) => void;
     setQuality: (value: 'low' | 'high') => void;
-    setLighting: (value: 'day' | 'night') => void;
-    toggleLighting: () => void;
   };
   function save(value: Partial<Settings>) {
   try {
@@ -18,18 +16,12 @@ import { create } from 'zustand';
     /* Storage may be disabled. */
   }
 }
-export const useSettingsStore = create<Settings>((set, get) => ({
+export const useSettingsStore = create<Settings>((set) => ({
   sound: false,
   reducedMotion: false,
   quality: 'high',
-  lighting: 'day',
+  lighting: 'night',
   setSound: sound => { set({ sound }); save({ sound }); },
   setReducedMotion: reducedMotion => { set({ reducedMotion }); save({ reducedMotion }); },
   setQuality: quality => { set({ quality }); save({ quality }); },
-  setLighting: lighting => { set({ lighting }); save({ lighting }); },
-  toggleLighting: () => {
-    const next = get().lighting === 'day' ? 'night' : 'day';
-    set({ lighting: next });
-    save({ lighting: next });
-  },
 }));

@@ -4,7 +4,6 @@ import { ProjectsApp } from './ProjectsApp';
 import { ExperienceApp } from './ExperienceApp';
 import { SkillsApp } from './SkillsApp';
 import { GalleryApp } from './GalleryApp';
-import { TerminalApp } from './TerminalApp';
 import { ContactApp } from './ContactApp';
 import { SettingsApp } from './SettingsApp';
 export function AppContent({ window }: { window: DesktopWindow }) {
@@ -14,7 +13,6 @@ export function AppContent({ window }: { window: DesktopWindow }) {
     case 'experience': return <ExperienceApp />;
     case 'skills': return <SkillsApp />;
     case 'gallery': return <GalleryApp />;
-    case 'terminal': return <TerminalApp />;
     case 'contact': return <ContactApp />;
     case 'settings': return <SettingsApp />;
   }

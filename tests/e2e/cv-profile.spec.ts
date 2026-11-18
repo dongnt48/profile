@@ -8,7 +8,7 @@ async function openFallback(page: import('@playwright/test').Page) {
     } as typeof original;
   });
   await page.goto('/');
-  await page.getByRole('button', { name: 'Open profile', exact: true }).click();
+  await page.getByRole('button', { name: /^Open profile/ }).click();
 }
 
 test('English CV content switches to Vietnamese in existing windows and persists', async ({ page }) => {
@@ -26,7 +26,7 @@ test('English CV content switches to Vietnamese in existing windows and persists
   await expect(about).toContainText('tích hợp các nền tảng bên thứ ba');
   await expect(about.getByRole('link', { name: 'Xem CV' })).toHaveAttribute('href', '/cv/NguyenThanhDong-VI.html');
   await page.reload();
-  await page.getByRole('button', { name: 'Mở hồ sơ', exact: true }).click();
+  await page.getByRole('button', { name: /^Mở hồ sơ/ }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'vi');
   await page.getByRole('button', { name: 'Mở Dự án', exact: true }).click();
   await page.getByRole('button', { name: /AI Chatbot SaaS.*DonBotify/ }).click();

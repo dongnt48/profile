@@ -2,8 +2,9 @@
 import { useTranslation } from '@/lib/i18n';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Monitor, Moon, MoveUpRight, Sun, Volume2, VolumeX } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowDownRight, Volume2, VolumeX } from 'lucide-react';
+import { RoomLoader } from './RoomLoader';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { getProfile } from '@/data/profile';
 import { Desktop } from '@/components/os/Desktop';
@@ -13,27 +14,31 @@ import { useSettingsStore } from '@/stores/settingsStore';
 import { useLoadPreferences, useReducedMotion } from '@/hooks/usePreferences';
 const RoomScene = dynamic(() => import('./scene/RoomScene'), {
   ssr: false,
-  loading: function RoomLoading() { const { t } = useTranslation(); return (
-    <div className="model-progress boot-loader" role="status">
-      <div className="boot-loader-card">
-        <div className="boot-loader-badge"><span className="brand-symbol">Đ</span></div>
-        <div className="boot-loader-brand"><strong>Đông</strong><span> / workspace</span></div>
-        <p className="boot-loader-label">{t('Preparing your workspace…')}</p>
-        <div className="boot-loader-bar-wrap"><div className="boot-loader-bar-fill" style={{ width: '8%' }} /></div>
-        <div className="boot-loader-meta"><span>{t("Preparing your workspace")}</span><strong>8%</strong></div>
-      </div>
-    </div>
-  ); },
+  loading: () => <RoomLoader />,
 });
 function Experience() {
   const { language, t } = useTranslation();
   const profile = getProfile(language);
   const pathname = usePathname();
-  const { mode, ready, failed, monitorFocused, setMode, focusMonitor, backToRoom: zoomOut } = useExperienceStore();
-  const { sound, lighting, setSound, toggleLighting } = useSettingsStore(); const reduced = useReducedMotion();
+  const { mode, ready, failed, monitorFocused, setMode, focusMonitor } = useExperienceStore();
+  const { sound, lighting, setSound } = useSettingsStore(); const reduced = useReducedMotion();
   const seededDefaultWindows = useRef(false);
+  const [revealed, setRevealed] = useState(false);
   useLoadPreferences();
   useEffect(() => {
+    if (!ready) {
+      setRevealed(false);
+      return;
+    }
+    if (reduced) {
+      setRevealed(true);
+      return;
+    }
+    const timer = setTimeout(() => setRevealed(true), 220);
+    return () => clearTimeout(timer);
+  }, [ready, reduced]);
+  useEffect(() => {
+    if (!ready || failed) return;
     if (!seededDefaultWindows.current && pathname === '/' && useWindowStore.getState().windows.length === 0) {
       seededDefaultWindows.current = true;
       useWindowStore.getState().open('projects');
@@ -41,25 +46,21 @@ function Experience() {
     } else {
       seededDefaultWindows.current = true;
     }
-  }, [pathname]);
+  }, [pathname, ready, failed]);
   function openComputer() { if (failed) setMode('os'); else focusMonitor(); }
-  function backToRoom() { zoomOut(); }
   const inMonitor = !failed;
-  const pageReady = ready || failed;
-  const showOS = mode === 'os'; const showWelcome = mode === 'welcome';
+  const pageReady = failed || revealed;
+  const showOS = mode === 'os';
   const hideRoomLayer = showOS && !inMonitor;
   const osInteractive = inMonitor ? ready && monitorFocused : showOS;
-  const screenVisible = inMonitor ? ready : showOS;
+  const screenVisible = inMonitor ? pageReady : showOS;
     return <div data-monitor-light="passive" className={`experience mode-${mode} lighting-${lighting} ${inMonitor ? 'in-monitor-mode' : ''} ${monitorFocused ? 'monitor-focused' : ''} ${pageReady ? 'page-ready' : 'page-loading'} ${reduced ? 'reduce-motion' : ''}`}>
       <LanguageSwitcher /><div className="room-layer" aria-hidden={hideRoomLayer} inert={hideRoomLayer}>
         <RoomScene onEnter={openComputer} />
-        <header className="room-header"><a href="/" aria-label="DongOS home" className="room-brand"><span className="brand-symbol">Đ</span><strong>Đông<span> / workspace</span></strong></a><span className="room-header-middle">{profile.role}</span><button className="text-button" onClick={openComputer}>{t("Open profile")} <ArrowUpRight size={16} /></button></header>
-        <div className={`welcome-copy ${showWelcome ? '' : 'room-copy'}`}><div className="eyebrow"><span className="live-dot" /> {profile.role}</div><h1>Nguyễn Thanh<br /><em>Đông</em></h1><p>{profile.location}<br />{profile.availability}</p>{showWelcome ? <><button className="primary-button room-cta" onClick={() => setMode('room')}>{t("Enter My Workspace")} <ArrowRight size={19} /></button><button className="skip-button" onClick={openComputer}>{t("Or, zoom straight to the screen")} <ArrowUpRight size={14} /></button></> : <button className="primary-button room-cta" onClick={openComputer}>{t("Zoom to screen")} <Monitor size={18} /></button>}</div>
-        {!showWelcome && <div className="monitor-hint"><MoveUpRight size={20} /><span>{t("Open profile")}<br /><strong>{t("Zoom in to use the screen.")}</strong></span></div>}
-        <div className="room-index"><span>{profile.name}</span><span>{profile.role}</span></div>
-        <footer className="room-footer"><span><span className="live-dot" /> {profile.email}</span><span className="room-scroll"><ArrowDownRight size={15} /> {t("Scroll to zoom · Click screen to focus")}</span><div className="room-footer-actions"><button className="sound-pill light-pill" onClick={toggleLighting}>{lighting === 'day' ? <Sun size={16} /> : <Moon size={16} />} {lighting === 'day' ? t('Morning') : t('Night')}</button><button className="sound-pill" onClick={() => setSound(!sound)}>{sound ? <Volume2 size={16} /> : <VolumeX size={16} />} {t('Sound')} {sound ? t('on') : t('off')}</button></div></footer>
+        <header className="room-header" style={{ justifyContent: 'center' }}><span className="room-header-middle">{profile.role}</span></header>
+        <footer className="room-footer"><span><span className="live-dot" /> {profile.email}</span><span className="room-scroll"><ArrowDownRight size={15} /> {t("Scroll to zoom · Click screen to focus")}</span><div className="room-footer-actions"><button className="sound-pill" onClick={() => setSound(!sound)}>{sound ? <Volume2 size={16} /> : <VolumeX size={16} />} {t('Sound')} {sound ? t('on') : t('off')}</button></div></footer>
       </div>
-      <div id="os-monitor-layer" className={`os-layer ${inMonitor ? 'in-monitor' : ''} ${screenVisible ? 'visible' : ''}`} aria-hidden={!osInteractive}><Desktop visible={osInteractive} onBack={backToRoom} /></div>
+      <div id="os-monitor-layer" className={`os-layer ${inMonitor ? 'in-monitor' : ''} ${screenVisible ? 'visible' : ''}`} aria-hidden={!osInteractive}><Desktop visible={osInteractive} /></div>
     </div>;
 }
 export function ExperienceShell() { const pathname = usePathname(); return pathname === '/' ? <Experience /> : null; }

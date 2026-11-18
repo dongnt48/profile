@@ -10,6 +10,7 @@ import {
   DoubleSide,
   Mesh,
   MeshStandardMaterial,
+  NoBlending,
   Object3D,
   RepeatWrapping,
   SRGBColorSpace,
@@ -759,6 +760,14 @@ export function RoomModel({ onEnter }: { onEnter: () => void }) {
   return (
     <group>
       <primitive object={model} />
+      {/* A depth-tested alpha opening lets real foreground geometry cover the HTML screen. */}
+      <mesh position={[0.1, 1.66, -0.978]} raycast={() => {}}>
+        <planeGeometry args={[1.49, 0.66]} />
+        <shaderMaterial
+          transparent blending={NoBlending} depthWrite
+          fragmentShader="void main() { gl_FragColor = vec4(0.0); }"
+        />
+      </mesh>
       {lighting === 'night' && aoTextures?.nightSky && (
         <mesh position={[2.76, 1.9, -0.24]} rotation={[0, -Math.PI / 2, 0]}>
           <planeGeometry args={[2.65, 1.62]} />
@@ -800,7 +809,7 @@ export function RoomModel({ onEnter }: { onEnter: () => void }) {
             <meshBasicMaterial map={aoTextures.radial} transparent opacity={0.48} depthWrite={false} polygonOffset polygonOffsetFactor={-1} />
           </mesh>
           {/* Chair ambient occlusion on woven wool rug (Y = 0.058) */}
-          <mesh position={[0.05, 0.058, 0.42]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={1}>
+          <mesh position={[0.05, 0.058, 0.77]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={1}>
             <planeGeometry args={[1.15, 1.15]} />
             <meshBasicMaterial map={aoTextures.radial} transparent opacity={0.46} depthWrite={false} polygonOffset polygonOffsetFactor={-1} />
           </mesh>
@@ -878,7 +887,7 @@ export function RoomModel({ onEnter }: { onEnter: () => void }) {
           }}
         >
           <planeGeometry args={[1.5, 0.68]} />
-          <meshBasicMaterial color="#e8ad63" transparent opacity={hover ? 0.18 : 0} depthWrite={false} />
+          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
       )}
     </group>

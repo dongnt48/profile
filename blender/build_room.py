@@ -451,7 +451,11 @@ def curve(name, points, radius, mat, res=3):
     data.dimensions = '3D'
     data.bevel_depth = radius
     data.bevel_resolution = res
+    closed = len(points) > 2 and (Vector(points[0]) - Vector(points[-1])).length < 1e-6
+    if closed:
+        points = points[:-1]
     spline = data.splines.new('BEZIER')
+    spline.use_cyclic_u = closed
     spline.bezier_points.add(len(points) - 1)
     for p, co in zip(spline.bezier_points, points):
         p.co = co
@@ -469,7 +473,8 @@ def suspension_mesh(name, rim, mat, axis='back', sag=.018):
     bpy.context.view_layer.update()
     points = rim.data.splines[0].bezier_points
     boundary = []
-    for a, b in zip(points, list(points)[1:]):
+    following = list(points)[1:] + ([points[0]] if rim.data.splines[0].use_cyclic_u else [])
+    for a, b in zip(points, following):
         boundary.extend(interpolate_bezier(a.co, a.handle_right, b.handle_left, b.co, 9)[:-1])
     center = sum(boundary, Vector()) / len(boundary)
     normal = Vector((0, 0, -1) if axis == 'seat' else (0, 1, 0))
@@ -1271,7 +1276,7 @@ build_pc_tower(case_white, walnut, silver)
 # ==============================================================================
 # 7. AUTHENTIC FULL MESH ERGONOMIC CHAIR (Herman Miller Aeron Style) & WOVEN RUG
 # ==============================================================================
-cx, cy = .05, -.42
+cx, cy = .05, -.77
 
 # 5-Star Polished Aluminum Spider Base & Dual PU Casters
 cylinder('Chair base hub', (cx, cy, .17), .062, .07, silver, 28)

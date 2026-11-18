@@ -7,6 +7,8 @@ import { AgXToneMapping, Object3D, PMREMGenerator } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { useExperienceStore } from '@/stores/experienceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { useReducedMotion } from '@/hooks/usePreferences';
+import { RoomLoader } from '../RoomLoader';
 import { RoomModel } from './RoomModel';
 import { CameraController } from './CameraController';
 
@@ -29,44 +31,37 @@ function Fallback() {
 }
 
 function LoadingProgress() {
-  const { t } = useTranslation();
-  const { progress, active } = useProgress();
+  const { progress } = useProgress();
   const ready = useExperienceStore(s => s.ready);
   const failed = useExperienceStore(s => s.failed);
-  const [displayProgress, setDisplayProgress] = useState(8);
+  const reduced = useReducedMotion();
+  const [displayProgress, setDisplayProgress] = useState(0);
+  const [completing, setCompleting] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     if (ready) {
       setDisplayProgress(100);
-      return;
+      if (reduced) {
+        setCompleting(true);
+        setDismissed(true);
+        return;
+      }
+      const startFade = setTimeout(() => setCompleting(true), 220);
+      const finishFade = setTimeout(() => setDismissed(true), 940);
+      return () => {
+        clearTimeout(startFade);
+        clearTimeout(finishFade);
+      };
     }
-    setDisplayProgress(prev => Math.max(prev, Math.min(96, Math.round(progress || 12))));
-  }, [progress, ready]);
+    setCompleting(false);
+    setDismissed(false);
+    setDisplayProgress(prev => Math.max(prev, Math.min(99, Math.round(progress))));
+  }, [progress, ready, reduced]);
 
-  if (ready || failed || (!active && ready)) return null;
+  if (dismissed || failed) return null;
 
-  return (
-    <div className="model-progress boot-loader" role="status" aria-live="polite">
-      <div className="boot-loader-card">
-        <div className="boot-loader-badge">
-          <span className="brand-symbol">Đ</span>
-        </div>
-        <div className="boot-loader-brand">
-          <strong>Đông</strong>
-          <span> / workspace</span>
-        </div>
-        <p className="boot-loader-label">{t('Loading 3D workspace and data…')}</p>
-        <div className="boot-loader-bar-wrap">
-          <progress max={100} value={displayProgress} />
-          <div className="boot-loader-bar-fill" style={{ width: `${displayProgress}%` }} />
-        </div>
-        <div className="boot-loader-meta">
-          <span>{t('Preparing the room')}</span>
-          <strong>{displayProgress}%</strong>
-        </div>
-      </div>
-    </div>
-  );
+  return <RoomLoader progress={displayProgress || null} complete={completing} />;
 }
 
   function StudioEnvironment({ isNight }: { isNight: boolean }) {

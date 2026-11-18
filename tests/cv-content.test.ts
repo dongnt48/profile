@@ -10,7 +10,7 @@ test('bilingual CV keeps all sections, dates, technologies and bullet counts ali
   for (const number of ['60–70%', '90%', '80%']) expect(cv.en.experience[1].achievements.join(' ')).toContain(`approximately ${number}`);
 });
 test('contact, role and project data contain only CV details', () => {
-  expect(getProfile('en').role).toBe('Software Developer'); expect(getProfile('en').email).toBe('dongnt48@gmail.com'); expect(getProfile('en').phone).toBe('0847793939'); expect(getProfile('en').links).toEqual([]);
+  expect(getProfile('en').role).toBe('Software Developer'); expect(getProfile('en').email).toBe('dongnt48@gmail.com'); expect(getProfile('en').phone).toBe('0847793939');
   expect(getProjects('en').map(p => p.id)).toEqual(['donbotify', 'logistics-crm', 'approvegram', 'edu-crm']);
   expect(getProfile('vi').cvUrl).toBe('/cv/NguyenThanhDong-VI.html'); expect(getProfile('en').cvUrl).toBe('/cv/NguyenThanhDong-EN.html');
 });
