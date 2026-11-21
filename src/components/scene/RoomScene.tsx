@@ -23,7 +23,7 @@ function Fallback() {
   const { t } = useTranslation();
   return (
     <div className="scene-fallback">
-      <img src="/images/room-preview.png" alt={t('3D workspace with an aquarium and computer desk')} />
+      <img src="/images/room-preview-current.webp" alt={t('3D workspace with an aquarium and computer desk')} />
       <p>{t('3D isn’t available here. Your profile is one click away.')}</p>
       <button className="text-button" onClick={() => useExperienceStore.getState().setMode('os')}>{t('Open profile')} →</button>
     </div>
@@ -124,6 +124,8 @@ function LoadingProgress() {
       <SceneBoundary>
         <div className="scene-canvas">
           <Canvas
+            // Ignore the boot transition's CSS scale when measuring render size.
+            resize={{ offsetSize: true }}
             dpr={quality === 'low' ? 1 : [1, 1.75]}
             shadows={quality !== 'low'}
             frameloop="always"

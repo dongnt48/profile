@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, test } from 'vitest';
+import { Matrix4, Quaternion, Vector3 } from 'three';
 
 const bytes = readFileSync(new URL('../public/models/room.glb', import.meta.url));
 const gltf = JSON.parse(bytes.subarray(20, 20 + bytes.readUInt32LE(12)).toString());
@@ -11,6 +12,47 @@ function surface(name: string) {
   const primitive = gltf.meshes[node.mesh].primitives[0];
   return { node, primitive, position: gltf.accessors[primitive.attributes.POSITION] };
 }
+
+test('curtains are continuous cloth, supported by rings and clear of floor, wall and plant', () => {
+  const panels = ['Curtain panel front', 'Curtain panel back'].map(surface);
+  expect(gltf.nodes.filter((node: { name: string }) => node.name.startsWith('Curtain ring '))).toHaveLength(14);
+  for (const { primitive, position } of panels) {
+    expect(position.count).toBeGreaterThan(3000);
+    expect(gltf.accessors[primitive.attributes.TEXCOORD_0].count).toBe(position.count);
+    expect(position.min[1]).toBeGreaterThan(.07);
+    expect(position.min[1]).toBeLessThan(.09);
+    expect(position.max[1]).toBeCloseTo(2.863, 3);
+    expect(position.max[0]).toBeLessThan(2.675); // Interior face of the window wall.
+  }
+  const clothMinX = Math.min(...panels.map(panel => panel.position.min[0]));
+  // glTF Z is Blender -Y: neither panel can pass through the deep sill.
+  expect(panels[0].position.min[2]).toBeGreaterThan(1.23);
+  expect(panels[1].position.max[2]).toBeLessThan(-1.72);
+  let plantMaxX = -Infinity;
+  for (const node of gltf.nodes.filter((node: { name: string }) => node.name.startsWith('Room_Leaf_'))) {
+    const { position } = surface(node.name);
+    const view = gltf.bufferViews[position.bufferView];
+    const start = binaryStart + (view.byteOffset || 0) + (position.byteOffset || 0);
+    const matrix = new Matrix4().compose(new Vector3().fromArray(node.translation ?? [0, 0, 0]), new Quaternion().fromArray(node.rotation ?? [0, 0, 0, 1]), new Vector3().fromArray(node.scale ?? [1, 1, 1]));
+    for (let i = 0; i < position.count; i++) {
+      const offset = start + i * (view.byteStride || 12);
+      const point = new Vector3(bytes.readFloatLE(offset), bytes.readFloatLE(offset + 4), bytes.readFloatLE(offset + 8)).applyMatrix4(matrix);
+      if (point.x > .8 && point.y > .1 && point.y < 1.5 && point.z > .3) plantMaxX = Math.max(plantMaxX, point.x);
+    }
+  }
+  expect(plantMaxX).toBeGreaterThan(2);
+  expect(clothMinX - plantMaxX).toBeGreaterThan(.04);
+});
+
+test('book ribbons stay with shelf books and the desk journal, away from the rug', () => {
+  for (const name of ['Room_Book_ribbon_gold', 'Room_Book_ribbon_burgundy']) {
+    const { node, position } = surface(name);
+    const baseY = node.translation?.[1] ?? 0;
+    // Gold includes the journal at desk height; both contain a shelf bookmark.
+    expect(position.min[1] + baseY).toBeGreaterThan(name.endsWith('gold') ? 1.2 : 2.4);
+    expect(position.max[1] + baseY).toBeGreaterThan(2.6);
+  }
+});
 
 test('chair membranes are curved UV-mapped surfaces with an alpha weave', () => {
   for (const name of ['Chair seat mesh membrane', 'Chair back mesh membrane', 'Headrest mesh membrane']) {

@@ -4,6 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3, PerspectiveCamera, type Camera } from 'three';
 import { useExperienceStore } from '@/stores/experienceStore';
 import { useReducedMotion } from '@/hooks/usePreferences';
+import { scaleProjectionForLayout } from '@/lib/monitorProjection';
 
 import { WELCOME_ZOOM, MIN_ZOOM, INTERACTION_ZOOM, monitorFieldOfView } from '@/lib/roomZoom';
 
@@ -20,7 +21,7 @@ const MONITOR_CORNERS = [
 const SCREEN_W = 1600;
 const SCREEN_H = 709;
 
-function updateMonitorProjection(camera: Camera, domElement: HTMLCanvasElement) {
+function updateMonitorProjection(camera: Camera, domElement: HTMLCanvasElement, layoutScale: number) {
   const el = document.getElementById('os-monitor-layer');
   if (!el || !el.classList.contains('in-monitor')) {
     if (el) { el.style.transform = ''; el.style.zoom = ''; }
@@ -48,7 +49,7 @@ function updateMonitorProjection(camera: Camera, domElement: HTMLCanvasElement) 
 
   // Once front-facing, use an affine matrix instead of tiny perspective terms.
   // This avoids unstable compositing of the HTML plane at the end of the zoom.
-  const affine = Math.abs(sx) + Math.abs(sy) < .001;
+  const affine = Math.abs(sx) + Math.abs(sy) < .25;
   const g = affine ? 0 : (sx * dy2 - dx2 * sy) / det;
   const h = affine ? 0 : (dx1 * sy - sx * dy1) / det;
   const a = p1.x - p0.x + g * p1.x;
@@ -64,21 +65,22 @@ function updateMonitorProjection(camera: Camera, domElement: HTMLCanvasElement) 
     0, 0, 1, 0,
     c, f, 0, 1,
   ];
-  if (affine && Math.abs(b) < .01 && Math.abs(d) < .01) {
-    // Browser layout zoom rasterizes text at its displayed resolution rather
-    // than magnifying a cached 1600px composited texture.
-    const scale = a / SCREEN_W;
+  // Keep layout resolution constant for the whole camera journey. Changing CSS
+  // zoom per frame forces layout/paint of every window and stalls WebGL frames.
+  if (el.style.zoom !== String(layoutScale)) el.style.zoom = String(layoutScale);
+  if (affine && Math.abs(b) < .25 && Math.abs(d) < .25) {
+    const scale = layoutScale;
     const pixelRatio = window.devicePixelRatio || 1;
     const x = Math.round(c * pixelRatio) / pixelRatio;
     const y = Math.round(f * pixelRatio) / pixelRatio;
-    el.style.zoom = String(scale);
-    el.style.transform = `translate(${x / scale}px, ${y / scale}px)`;
+    const scaleX = a / (SCREEN_W * scale);
+    const scaleY = e / (SCREEN_H * scale);
+    el.style.transform = `matrix(${scaleX}, 0, 0, ${scaleY}, ${x / scale}, ${y / scale})`;
     el.dataset.textRendering = 'native';
     return;
   }
-  el.style.zoom = '';
   el.dataset.textRendering = 'projected';
-  el.style.transform = `matrix3d(${m.join(',')})`;
+  el.style.transform = `matrix3d(${scaleProjectionForLayout(m, layoutScale).join(',')})`;
 }
 
 export function CameraController() {
@@ -107,13 +109,14 @@ export function CameraController() {
     const up = () => { dragging.current = false; };
     const wheel = (e: WheelEvent) => {
       // App content keeps its own scrolling, including at a scroll boundary.
-      if ((e.target as HTMLElement)?.closest('.window-body')) return;
+      if ((e.target as HTMLElement)?.closest('.window-body, .reading-mode .os-layer')) return;
       const state = useExperienceStore.getState();
       if (state.mode === 'os') return;
       const delta = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1);
       state.setZoom(state.zoom + delta * .0007);
     };
     const touchStart = (e: TouchEvent) => {
+      if ((e.target as HTMLElement)?.closest('.reading-mode .os-layer')) return;
       if (e.touches.length !== 2) return;
       dragging.current = false;
       pinch.current = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
@@ -162,9 +165,11 @@ export function CameraController() {
     const welcome = state.mode === 'welcome';
     const aspect = size.width / Math.max(1, size.height);
     const distance = mobile ? 1.48 : Math.max(1.48, 2.52 / Math.max(1.2, aspect));
+    const nearFov = monitorFieldOfView(distance, aspect);
+    // Rasterize once at the final screen size, even while viewing it from afar.
+    const layoutScale = 1.49 * size.height / (2 * distance * Math.tan(nearFov * Math.PI / 360) * SCREEN_W);
     if (camera instanceof PerspectiveCamera) {
       // Magnify the screen optically; preserve the existing camera path and chair clearance.
-      const nearFov = monitorFieldOfView(distance, aspect);
       camera.fov += (35 + (nearFov - 35) * frontBlend - camera.fov) * damp;
       camera.updateProjectionMatrix();
     }
@@ -183,7 +188,7 @@ export function CameraController() {
     currentLook.current.lerp(look, damp);
     camera.lookAt(currentLook.current);
     camera.updateMatrixWorld();
-    updateMonitorProjection(camera, gl.domElement);
+    updateMonitorProjection(camera, gl.domElement, layoutScale);
     // Camera-owned attributes survive React updates to the shell's className.
     const shell = document.querySelector<HTMLElement>('.experience');
     const roomCloseup = String(closeup > .45);

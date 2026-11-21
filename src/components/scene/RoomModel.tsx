@@ -804,7 +804,7 @@ export function RoomModel({ onEnter }: { onEnter: () => void }) {
             <planeGeometry args={[0.76, 1.02]} />
             <meshBasicMaterial map={aoTextures.box} transparent opacity={0.56} depthWrite={false} polygonOffset polygonOffsetFactor={-2} />
           </mesh>
-          <mesh position={[2.08, 0.0395, 1.22]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={1}>
+          <mesh position={[1.68, 0.0395, 1.22]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={1}>
             <planeGeometry args={[0.88, 0.88]} />
             <meshBasicMaterial map={aoTextures.radial} transparent opacity={0.48} depthWrite={false} polygonOffset polygonOffsetFactor={-1} />
           </mesh>

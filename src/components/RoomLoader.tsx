@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@/lib/i18n';
 
 function getStatusKey(value: number | undefined, complete: boolean) {
@@ -21,8 +21,8 @@ export function RoomLoader({ progress = null, complete = false }: { progress?: n
     if (img?.complete && img.naturalWidth > 0) setImgLoaded(true);
   }, []);
 
-  const value = progress === null ? undefined : Math.max(0, Math.min(100, Math.round(progress)));
-  const ratio = complete ? 1 : value === undefined ? 0.14 : value / 100;
+  const value = complete ? 100 : progress === null || !Number.isFinite(progress) ? undefined : Math.max(0, Math.min(100, Math.round(progress)));
+  const ratio = value === undefined ? 0.14 : value / 100;
   const statusText = t(getStatusKey(value, complete));
 
   const stageClasses = [
@@ -33,13 +33,8 @@ export function RoomLoader({ progress = null, complete = false }: { progress?: n
     imgLoaded ? 'is-img-ready' : '',
   ].filter(Boolean).join(' ');
 
-  const lightStyle = {
-    '--load-ratio': ratio.toFixed(3),
-    '--light-spread': `${Math.round(18 + ratio * 126)}%`,
-  } as CSSProperties;
-
   return (
-    <div className={stageClasses} style={lightStyle}>
+    <div className={stageClasses}>
       <div className="loading-backdrop" aria-hidden="true" />
       <div
         className="loading-desk"
@@ -50,23 +45,15 @@ export function RoomLoader({ progress = null, complete = false }: { progress?: n
         aria-valuenow={value}
       >
         <div className="loading-stage" aria-hidden="true">
-          <div className="loading-lamp-halo" />
           <img
             ref={imgRef}
-            src="/images/room-preview.png"
+            src="/images/room-preview-current.webp"
             alt=""
-            className="loading-room-img loading-room-dim"
+            className="loading-room-img"
             decoding="async"
             fetchPriority="high"
             onLoad={() => setImgLoaded(true)}
           />
-          <img
-            src="/images/room-preview.png"
-            alt=""
-            className="loading-room-img loading-room-lit"
-            decoding="async"
-          />
-          <div className="loading-lamp-flare" />
         </div>
 
         <div className="loading-hud">
@@ -75,7 +62,7 @@ export function RoomLoader({ progress = null, complete = false }: { progress?: n
             {value !== undefined && <span className="loading-percent">{value}%</span>}
           </div>
           <div className="loading-track">
-            <div className="loading-fill" style={value !== undefined ? { width: `${value}%` } : undefined} />
+            <div className="loading-fill" style={value !== undefined ? { transform: `scaleX(${ratio})` } : undefined} />
           </div>
         </div>
       </div>

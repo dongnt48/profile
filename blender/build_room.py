@@ -10,6 +10,7 @@ from mouse import build_mouse
 from desk_accessories import build_speakers, build_headphones, build_desk_lamp
 from monitor_hardware import build_monitor_hardware
 from pc_tower import build_pc_tower
+from curtains import build_curtains
 
 random.seed(42)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -813,29 +814,8 @@ cylinder('Window lantern glow', (2.46, -.42, 1.155), .036, .09, amber, 20)
 cylinder('Window lantern glass', (2.46, -.42, 1.165), .058, .12, glass, 24)
 cylinder('Window lantern cap', (2.46, -.42, 1.235), .064, .02, black, 24)
 
-# Curtain Rod, Finials & Continuous Pleated Linen Curtains
-rod('Curtain rail', (2.40, -1.32, 2.89), (2.40, 1.78, 2.89), .022, black)
-for y_fin in [-1.34, 1.80]:
-    sphere('Curtain finial', (2.40, y_fin, 2.89), (.042, .042, .042), brass)
-for y_br in [-1.22, .24, 1.68]:
-    rod('Curtain bracket', (2.66, y_br, 2.89), (2.40, y_br, 2.89), .012, black)
-
-for side, base in enumerate([-1.24, 1.28]):
-    for j in range(14):
-        y = base + j * .032
-        wave_x = math.sin(j * 1.45) * .042
-        pinch = .028 * math.sin((j - 6.5) * .18) if side == 0 else -.028 * math.sin((j - 6.5) * .18)
-        pts = [
-            (2.39 + wave_x * .5, y, 2.86),
-            (2.37 + wave_x, y + pinch * .5, 2.22),
-            (2.39 + wave_x * .8, y + pinch, 1.42),
-            (2.36 + wave_x, y + pinch * .6, .68),
-        ]
-        curve('Linen curtain fold', pts, .038, curtainmat)
-        if j % 2 == 0:
-            cylinder('Curtain ring', (2.40, y, 2.89), .032, .008, brass, 18, rot=(math.pi / 2, 0, 0))
-    # Brass curtain tie-back band
-    cylinder('Curtain tieback', (2.38, base + .21, 1.42), .065, .022, brass, 24)
+# Continuous linen panels hang from rings, clear of the wall and floor.
+build_curtains(curtainmat, black, brass)
 
 # ==============================================================================
 # 2. WORK DESK, DRAWER PEDESTAL & MONITOR RISER SHELF
@@ -1414,7 +1394,8 @@ def create_hardcover_book(name, pos, size, cover_mat, pages_mat, title_mat, rot_
         rib.parent = root
 
     if ribbon_mat:
-        curve(name + ' ribbon', [(0, -bd * 0.15, bh / 2 + 0.004), (0.006, -bd * 0.42, bh / 2 - 0.04), (0.008, -bd * 0.45, -bh * 0.25)], .002, ribbon_mat)
+        ribbon = curve(name + ' ribbon', [(0, -bd * 0.15, bh / 2 + 0.004), (0.006, -bd * 0.42, bh / 2 - 0.04), (0.008, -bd * 0.45, -bh * 0.25)], .002, ribbon_mat)
+        ribbon.parent = root
     return root
 
 # Curated library on main shelf with varied dimensions, raised ribs & foil titles
@@ -1599,20 +1580,20 @@ sphere('Clock center cap', (1.72, 1.955, 2.65), (.016, .008, .016), brass, 12)
 stand_z = .12
 for leg_a in range(4):
     la = leg_a * math.tau / 4 + math.pi / 4
-    lx = 2.08 + math.cos(la) * .20
+    lx = 1.68 + math.cos(la) * .20
     ly = -1.22 + math.sin(la) * .20
     rod('Plant stand leg', (lx, ly, .03), (lx, ly, .34), .018, walnut)
-    rod('Plant stand crossbar', (2.08, -1.22, .15), (lx, ly, .15), .014, walnut)
-top = pot((2.08, -1.22, stand_z), .26, .38, cream_ceramic)
+    rod('Plant stand crossbar', (1.68, -1.22, .15), (lx, ly, .15), .014, walnut)
+top = pot((1.68, -1.22, stand_z), .26, .38, cream_ceramic)
 for i in range(14):
     a = i * 2.399
     h = .38 + (i % 4) * .16
     r_spread = .22 + (1.0 - (i / 18.0)) * .22
-    x = 2.08 + math.cos(a) * r_spread
+    x = 1.68 + math.cos(a) * r_spread
     y = -1.22 + math.sin(a) * r_spread
     curve('Floor plant stem', [
-        (2.08, -1.22, top - .02),
-        (2.08 + math.cos(a) * r_spread * .45, -1.22 + math.sin(a) * r_spread * .45, top + h * .65),
+        (1.68, -1.22, top - .02),
+        (1.68 + math.cos(a) * r_spread * .45, -1.22 + math.sin(a) * r_spread * .45, top + h * .65),
         (x, y, top + h),
     ], .012, darkleaf)
     # Orient leaf outward from center of pot (angle = a - pi/2 makes +Y of leaf point along (cos a, sin a))
