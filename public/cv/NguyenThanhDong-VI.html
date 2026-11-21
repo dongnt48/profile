@@ -3,10 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>CV - Nguyễn Thanh Đông - Software Developer</title>
+  <title>CV - Nguyễn Thành Đông - Software Developer</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
     :root {
       --primary: #1e3a8a;
       --primary-light: #2563eb;
@@ -25,7 +23,8 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-variant-ligatures: none;
       color: var(--text-main);
       background-color: #f8fafc;
       line-height: 1.45;
@@ -45,6 +44,11 @@
       position: relative;
     }
 
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
     @media print {
       body {
         background: transparent;
@@ -53,9 +57,9 @@
       .page {
         margin: 0;
         box-shadow: none;
-        width: 100%;
-        min-height: 100vh;
-        padding: 14mm 16mm;
+        width: 210mm;
+        min-height: 297mm;
+        padding: 10mm 13mm 14mm 13mm;
       }
 
       .page-break {
@@ -99,8 +103,8 @@
     /* Header */
     .header {
       border-bottom: 2px solid var(--primary-light);
-      padding-bottom: 12px;
-      margin-bottom: 14px;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .name {
@@ -121,11 +125,18 @@
 
     .contact-grid {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px 16px;
-      margin-top: 8px;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 7px;
       font-size: 12px;
       color: var(--text-muted);
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+      align-items: center;
     }
 
     .contact-item {
@@ -146,11 +157,11 @@
 
     /* Sections */
     .section {
-      margin-bottom: 13px;
+      margin-bottom: 9px;
     }
 
     .section-title {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.6px;
@@ -159,8 +170,8 @@
       align-items: center;
       gap: 8px;
       border-bottom: 1.5px solid var(--border);
-      padding-bottom: 4px;
-      margin-bottom: 8px;
+      padding-bottom: 3px;
+      margin-bottom: 6px;
     }
 
     .section-title::before {
@@ -176,17 +187,17 @@
     .skills-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 5px;
-      font-size: 12.5px;
+      gap: 3px;
+      font-size: 11.6px;
     }
 
     .skill-row {
       display: flex;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     .skill-cat {
-      width: 195px;
+      width: 155px;
       font-weight: 600;
       color: var(--text-main);
       flex-shrink: 0;
@@ -200,6 +211,12 @@
     /* Work Experience Blocks */
     .job-block {
       margin-bottom: 11px;
+    }
+
+    .job-entry {
+      border-left: 3px solid var(--primary-light);
+      padding: 2px 0 2px 9px;
+      margin-bottom: 10px;
     }
 
     .job-header {
@@ -238,18 +255,31 @@
     .project-card {
       background: #fafafa;
       border-left: 3px solid var(--primary-light);
-      padding: 6px 10px;
+      padding: 4px 9px;
       border-radius: 0 4px 4px 0;
-      margin: 6px 0;
+      margin: 4px 0;
     }
 
     .project-title {
       font-weight: 600;
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--primary);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
+    }
+
+    .project-meta {
+      font-size: 10.8px;
+      color: var(--text-light);
+      margin-top: 1px;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+
+    .project-meta strong {
+      color: var(--text-muted);
     }
 
     .project-tech {
@@ -260,15 +290,15 @@
     }
 
     ul.bullet-list {
-      padding-left: 17px;
-      margin-top: 3px;
+      padding-left: 16px;
+      margin-top: 2px;
     }
 
     ul.bullet-list li {
-      margin-bottom: 3.5px;
+      margin-bottom: 1.8px;
       color: var(--text-muted);
-      font-size: 12px;
-      line-height: 1.45;
+      font-size: 11.4px;
+      line-height: 1.35;
     }
 
     ul.bullet-list li strong {
@@ -276,15 +306,38 @@
     }
 
     .badge-live {
-      background: #10b981;
-      color: white;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      font-size: 10.5px;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge-client {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      font-size: 10.5px;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge-demo {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
       font-size: 10px;
       padding: 1px 6px;
-      border-radius: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
+      border-radius: 4px;
+      font-weight: 500;
+      white-space: nowrap;
       margin-left: 6px;
-      letter-spacing: 0.3px;
+      vertical-align: middle;
     }
 
     .page-footer {
@@ -314,29 +367,30 @@
   <!-- ==================== TRANG 1 ==================== -->
   <div class="page">
     <header class="header">
-      <h1 class="name">Nguyễn Thanh Đông</h1>
+      <h1 class="name">Nguyễn Thành Đông</h1>
       <div class="title">SOFTWARE DEVELOPER</div>
       <div class="contact-grid">
-        <div class="contact-item">📧 <a href="mailto:dongnt48@gmail.com">dongnt48@gmail.com</a></div>
-        <div class="contact-item">📱 <strong>0847793939</strong></div>
-        <div class="contact-item">🔗 <a href="#" target="_blank">Link Profile (cập nhật sau)</a></div>
-        <div class="contact-item">📍 Cần Thơ / TP. Hồ Chí Minh (Sẵn sàng làm việc Remote hoặc On-site)</div>
+        <div class="contact-row">
+          <div class="contact-item">📧 <a href="mailto:dongnt48@gmail.com">dongnt48@gmail.com</a></div>
+          <div class="contact-item">📱 <strong>0847793939</strong></div>
+          <div class="contact-item">📍 An Giang / TP. Hồ Chí Minh (Remote / On-site)</div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-item">🌐 Profile: <a href="https://profile.modoha.io.vn" target="_blank">profile.modoha.io.vn</a></div>
+          <div class="contact-item">🎬 TikTok: <a href="https://www.tiktok.com/@thanhdong0430" target="_blank">tiktok.com/@thanhdong0430</a></div>
+        </div>
       </div>
     </header>
 
     <!-- Tóm tắt chuyên môn -->
     <section class="section">
       <div class="section-title">Tóm tắt chuyên môn</div>
-      <div style="font-size: 12.5px; line-height: 1.5; color: var(--text-muted);">
-        <p style="margin-bottom: 6px;">Software Developer có kinh nghiệm phát triển phần mềm, tập trung vào xây dựng hệ
-          thống quản lý doanh nghiệp, thiết kế cơ sở dữ liệu, phát triển API và tích hợp các nền tảng bên thứ ba. Có
-          kinh nghiệm làm việc với PHP, Node.js/NestJS, MySQL và PostgreSQL, đồng thời từng tham gia phát triển các hệ
-          thống CRM, tự động hóa quy trình và giải quyết những bài toán nghiệp vụ phức tạp.</p>
-        <p>Có khả năng phân tích yêu cầu, thiết kế giải pháp và phát triển các sản phẩm phần mềm trong lĩnh vực CRM, HRM
-          và ứng dụng AI. Luôn chủ động nghiên cứu công nghệ mới, ứng dụng các công cụ AI nhằm nâng cao hiệu quả phát
-          triển và chất lượng sản phẩm, hướng đến việc xây dựng những hệ thống có tính ổn định, khả năng mở rộng và đáp
-          ứng hiệu quả nhu cầu thực tế của doanh nghiệp.</p>
-      </div>
+      <p style="font-size: 11.8px; line-height: 1.42; color: var(--text-muted); text-align: justify;">
+        Software Developer tập trung phát triển cho các hệ thống quản trị doanh nghiệp, tự động hóa quy trình nghiệp vụ
+        và tích hợp đa kênh. Có kinh nghiệm PHP/Vtiger và Node.js/NestJS, thiết kế cơ sở dữ liệu, xây dựng API và phát
+        triển các sản phẩm CRM, HRM, AI Chatbot. Thế mạnh là phân tích nghiệp vụ và chuyển các quy trình doanh nghiệp
+        thành chức năng phần mềm.
+      </p>
     </section>
 
     <!-- Kỹ năng chuyên môn -->
@@ -386,11 +440,8 @@
         <!-- Project 1: DonBotify -->
         <div class="project-card">
           <div class="project-title">
-            <span>DonBotify — Nền tảng SaaS Trợ lý ảo AI & Chăm sóc khách hàng Đa kênh</span>
-            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">AI Chatbot SaaS</span>
+            <span>DonBotify — Nền tảng SaaS Trợ lý ảo AI &amp; Chăm sóc khách hàng Đa kênh</span>
           </div>
-          <div class="project-tech">NestJS REST API (/api/v1), Next.js, PostgreSQL, Redis, Socket.IO, S3 (SeaweedFS),
-            Python (Docling)</div>
           <ul class="bullet-list">
             <li>Xây dựng kiến trúc quản lý nhiều cửa hàng và chatbot với cấu hình, dữ liệu và kho kiến thức độc lập.
             </li>
@@ -398,18 +449,15 @@
               phẩm, tài liệu và hỗ trợ tư vấn theo ngữ cảnh.</li>
             <li>Phát triển Unified Inbox, tích hợp Website Chat Widget, Facebook Fanpage và Zalo cá nhân.</li>
             <li>Tích hợp thanh toán tự động qua SePay Webhooks để quản lý gói dịch vụ (Subscription Billing).</li>
+            <li><strong>Công nghệ:</strong> NestJS REST API, Next.js, PostgreSQL, Redis, Socket.IO.</li>
           </ul>
         </div>
 
         <!-- Project 2: CRM Logistics tích hợp AI Agent -->
         <div class="project-card">
           <div class="project-title">
-            <span>CRM Logistics tích hợp AI Agent</span>
-            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">Logistics CRM & AI
-              Agent</span>
-          </div>
-          <div class="project-tech">NestJS, Next.js, PostgreSQL (pgvector), Redis, Prisma, LangGraph, Python (Docling),
-            Docker, Nginx, Vitest, Playwright
+            <span>CRM Logistics tích hợp AI Agent <span
+                style="font-weight: 500; color: var(--text-light);">(R&amp;D)</span></span>
           </div>
           <ul class="bullet-list">
             <li>Phát triển các module quản lý khách hàng, Sales Pipeline, báo giá, booking, chứng từ, vận chuyển và
@@ -422,27 +470,28 @@
             <li>Sử dụng LangGraph điều phối các bước xử lý của AI Agent, kết hợp cơ chế phân quyền và xác nhận trước khi
               thực hiện thao tác thay đổi dữ liệu.</li>
             <li>Ứng dụng Background Jobs và Queue Workers để xử lý các tác vụ bất đồng bộ.</li>
+            <li><strong>Công nghệ:</strong> NestJS, Next.js, PostgreSQL, Redis, Prisma, LangGraph, Docker,
+              Nginx.</li>
           </ul>
         </div>
 
         <!-- Project 3: ApproveGram -->
         <div class="project-card">
           <div class="project-title">
-            <span>ApproveGram — Hệ thống Quản trị Nhân sự (HRM) & Phê duyệt Quy trình</span>
-            <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">HRM & Workflow
-              Automation</span>
+            <span>ApproveGram — Hệ thống Quản trị Nhân sự &amp; Phê duyệt Quy trình <span
+                style="font-weight: 500; color: var(--text-light);">(R&amp;D)</span></span>
           </div>
-          <div class="project-tech">NestJS, React (Vite), PostgreSQL, Prisma, Telegram Bot (grammy) & Mini App, Swagger,
-            Vitest</div>
           <ul class="bullet-list">
             <li>Thiết kế và phát triển các module HRM: quản lý nhân viên, phòng ban, ca làm việc, giao việc, báo cáo
               ngày và chấm công qua Webhook.</li>
             <li>Xây dựng Workflow Engine hỗ trợ cấu hình quy trình trực quan bằng các node, điều kiện rẽ nhánh, phê
               duyệt nhiều bước, gửi thông báo và cập nhật dữ liệu nghiệp vụ.</li>
             <li>Phát triển module tính lương dựa trên dữ liệu chấm công, tăng ca, phụ cấp và khấu trừ.</li>
-            <li>Tích hợp Telegram Bot (grammy) và Mini App, hỗ trợ nhân viên chấm công, gửi yêu cầu, quản lý công việc,
+            <li>Tích hợp Telegram Bot và Mini App, hỗ trợ nhân viên chấm công, gửi yêu cầu, quản lý công việc,
               tra cứu phiếu lương và tương tác trực tiếp với các bước phê duyệt.</li>
-            <li>Thiết kế phân quyền RBAC, bảo mật JWT + Argon2, Rate Limiting và kiểm thử tự động với Vitest.</li>
+            <li>Thiết kế phân quyền RBAC, bảo mật JWT + Argon2 và Rate Limiting.</li>
+            <li><strong>Công nghệ:</strong> NestJS, React, PostgreSQL, Prisma, Telegram Bot &amp; Mini
+              App, Swagger.</li>
           </ul>
         </div>
 
@@ -450,7 +499,7 @@
     </section>
 
     <div class="page-footer">
-      <span>Nguyễn Thanh Đông — CV Software Developer</span>
+      <span>Nguyễn Thành Đông — CV Software Developer</span>
       <span>Trang 1 / 2</span>
     </div>
   </div>
@@ -462,25 +511,23 @@
       <!-- Project 4: EDU CRM -->
       <div class="project-card" style="margin-top: 0; margin-bottom: 12px;">
         <div class="project-title">
-          <span>EDU CRM</span>
-          <span style="font-size: 11px; font-weight: normal; color: var(--text-light);">Education CRM</span>
+          <span>EDU CRM — Hệ thống Quản lý Tuyển sinh</span>
         </div>
-        <div class="project-tech">NestJS, Next.js, PostgreSQL 16, Redis 7 (BullMQ), Prisma, Tailwind CSS, shadcn/ui,
-          Docker, Nginx, Vitest</div>
         <ul class="bullet-list">
-          <li>Phát triển các module quản lý tuyển sinh và đào tạo: Leads, lịch chăm sóc (Follow-ups), học viên, phụ
+          <li>Phát triển các module quản lý tuyển sinh: Leads, lịch chăm sóc (Follow-ups), học viên, phụ
             huynh, lớp học, ghi danh, chuyển lớp và thanh toán học phí.</li>
           <li>Xây dựng cơ chế phân công tư vấn, chống trùng lead, thông báo tự động và xử lý hàng đợi bất đồng bộ với
             BullMQ & Redis.</li>
           <li>Phát triển hệ thống phân quyền RBAC, nhật ký đăng nhập (Login Logs), báo cáo thống kê và xuất dữ liệu
             Excel (ExcelJS).</li>
-          <li>Thiết kế bảo mật JWT với Refresh Token xoay vòng (Argon2, Helmet) và kiểm thử tự động Unit/E2E với Vitest
-            & Supertest.</li>
+          <li>Thiết kế bảo mật JWT với Refresh Token xoay vòng (Argon2, Helmet).</li>
+          <li><strong>Công nghệ:</strong> NestJS, Next.js, PostgreSQL, Redis, Prisma, Tailwind CSS,
+            shadcn/ui, Docker, Nginx.</li>
         </ul>
       </div>
 
       <!-- INNOCOM -->
-      <div class="job-block">
+      <div class="job-entry">
         <div class="job-header">
           <div>
             <span class="job-role">Lập trình viên Phần mềm (Software Developer)</span> — <span
@@ -494,21 +541,21 @@
           <li>Thiết kế và phát triển các module nghiệp vụ, xử lý logic và mở rộng chức năng của hệ thống CRM.</li>
           <li>Xây dựng Customizer Framework giúp phát triển và tùy chỉnh chức năng mà không cần can thiệp trực tiếp vào
             mã nguồn lõi, nâng cao khả năng bảo trì và mở rộng hệ thống.</li>
-          <li>Phát triển các quy trình tự động hóa như Approval, Routing, SLA và Notifications, giúp <strong>giảm khoảng
-              60–70% thời gian xử lý Lead</strong>.</li>
-          <li>Xây dựng hệ thống Job Queue phục vụ xử lý tác vụ nền và tự động hóa nghiệp vụ, <strong>giảm khoảng 90% lỗi
-              thao tác thủ công</strong>.</li>
+          <li>Phát triển các quy trình tự động hóa như Approval, Routing, SLA và Notifications, giúp giảm khoảng
+              60–70% thời gian xử lý Lead.</li>
+          <li>Xây dựng hệ thống Job Queue phục vụ xử lý tác vụ nền và tự động hóa nghiệp vụ, giảm khoảng 90% lỗi
+              thao tác thủ công.</li>
           <li>Tích hợp Facebook Ads, Zalo Ads, Zalo OA và Telegram, hỗ trợ đồng bộ dữ liệu và kết nối các kênh giao tiếp
             với CRM.</li>
-          <li>Phát triển Live Chat đa kênh, tích hợp Facebook Page và Zalo OA, giúp <strong>giảm khoảng 80% thời gian
-              phản hồi khách hàng</strong>.</li>
+          <li>Phát triển Live Chat đa kênh, tích hợp Facebook Page và Zalo OA, giúp giảm khoảng 80% thời gian
+              phản hồi khách hàng.</li>
           <li>Phát triển và mở rộng các chức năng CRM phục vụ lĩnh vực giáo dục, logistics và du lịch.</li>
           <li><strong>Công nghệ:</strong> PHP, JavaScript, Node.js, MySQL, jQuery, Smarty, REST API, Webhooks, Git.</li>
         </ul>
       </div>
 
       <!-- FE CREDIT -->
-      <div class="job-block">
+      <div class="job-entry">
         <div class="job-header">
           <div>
             <span class="job-role">Lập trình viên Phần mềm (Dự án Outsource)</span> — <span class="job-company">FE
@@ -526,7 +573,7 @@
       </div>
 
       <!-- A.D.A -->
-      <div class="job-block">
+      <div class="job-entry">
         <div class="job-header">
           <div>
             <span class="job-role">Lập trình viên Phần mềm (Software Developer)</span> — <span
@@ -539,13 +586,12 @@
             nhiên liệu, nhiệt độ thùng hàng lạnh, cảm biến tải trọng).</li>
           <li>Tích hợp các thiết bị phần cứng IoT (camera giám sát, cảm biến) với máy chủ backend qua RESTful APIs, bảo
             đảm dữ liệu truyền nhận theo thời gian thực ổn định và chính xác.</li>
-          <li><strong>Công nghệ:</strong> PHP (CodeIgniter), JavaScript, Node.js, jQuery, REST API, MySQL, Git.
-          </li>
+          <li><strong>Công nghệ:</strong> PHP (CodeIgniter), JavaScript, Node.js, jQuery, REST API, MySQL, Git.</li>
         </ul>
       </div>
 
       <!-- VNPT AN GIANG -->
-      <div class="job-block">
+      <div class="job-entry">
         <div class="job-header">
           <div>
             <span class="job-role">Thực tập sinh R&D IoT</span> — <span class="job-company">VNPT An Giang</span>
@@ -565,7 +611,7 @@
     </section>
 
     <div class="page-footer">
-      <span>Nguyễn Thanh Đông — CV Software Developer</span>
+      <span>Nguyễn Thành Đông — CV Software Developer</span>
       <span>Trang 2 / 2</span>
     </div>
   </div>

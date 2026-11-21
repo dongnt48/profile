@@ -1,7 +1,24 @@
 {
+  "profile": {
+    "name": "Nguyễn Thành Đông",
+    "role": "Software Developer",
+    "email": "dongnt48@gmail.com",
+    "phone": "0847793939",
+    "location": "An Giang / TP. Hồ Chí Minh",
+    "availability": "Remote / On-site",
+    "links": [
+      {
+        "label": "Profile",
+        "url": "https://profile.modoha.io.vn"
+      },
+      {
+        "label": "TikTok",
+        "url": "https://www.tiktok.com/@thanhdong0430"
+      }
+    ]
+  },
   "summary": [
-    "Software Developer có kinh nghiệm phát triển phần mềm, tập trung vào xây dựng hệ thống quản lý doanh nghiệp, thiết kế cơ sở dữ liệu, phát triển API và tích hợp các nền tảng bên thứ ba. Có kinh nghiệm làm việc với PHP, Node.js/NestJS, MySQL và PostgreSQL, đồng thời từng tham gia phát triển các hệ thống CRM, tự động hóa quy trình và giải quyết những bài toán nghiệp vụ phức tạp.",
-    "Có khả năng phân tích yêu cầu, thiết kế giải pháp và phát triển các sản phẩm phần mềm trong lĩnh vực CRM, HRM và ứng dụng AI. Luôn chủ động nghiên cứu công nghệ mới, ứng dụng các công cụ AI nhằm nâng cao hiệu quả phát triển và chất lượng sản phẩm, hướng đến việc xây dựng những hệ thống có tính ổn định, khả năng mở rộng và đáp ứng hiệu quả nhu cầu thực tế của doanh nghiệp."
+    "Software Developer tập trung phát triển cho các hệ thống quản trị doanh nghiệp, tự động hóa quy trình nghiệp vụ và tích hợp đa kênh. Có kinh nghiệm PHP/Vtiger và Node.js/NestJS, thiết kế cơ sở dữ liệu, xây dựng API và phát triển các sản phẩm CRM, HRM, AI Chatbot. Thế mạnh là phân tích nghiệp vụ và chuyển các quy trình doanh nghiệp thành chức năng phần mềm."
   ],
   "skills": [
     {
@@ -32,8 +49,8 @@
   "projects": [
     {
       "title": "DonBotify — Nền tảng SaaS Trợ lý ảo AI & Chăm sóc khách hàng Đa kênh",
-      "description": "AI Chatbot SaaS",
-      "tech": "NestJS REST API (/api/v1), Next.js, PostgreSQL, Redis, Socket.IO, S3 (SeaweedFS), Python (Docling)",
+      "description": "Xây dựng kiến trúc quản lý nhiều cửa hàng và chatbot với cấu hình, dữ liệu và kho kiến thức độc lập.",
+      "tech": "NestJS REST API, Next.js, PostgreSQL, Redis, Socket.IO",
       "features": [
         "Xây dựng kiến trúc quản lý nhiều cửa hàng và chatbot với cấu hình, dữ liệu và kho kiến thức độc lập.",
         "Tích hợp LLM và Knowledge Base ứng dụng RAG, Embedding, Vector Search để chatbot khai thác thông tin sản phẩm, tài liệu và hỗ trợ tư vấn theo ngữ cảnh.",
@@ -42,9 +59,9 @@
       ]
     },
     {
-      "title": "CRM Logistics tích hợp AI Agent",
-      "description": "Logistics CRM & AI Agent",
-      "tech": "NestJS, Next.js, PostgreSQL (pgvector), Redis, Prisma, LangGraph, Python (Docling), Docker, Nginx, Vitest, Playwright",
+      "title": "CRM Logistics tích hợp AI Agent (R&D)",
+      "description": "Phát triển các module quản lý khách hàng, Sales Pipeline, báo giá, booking, chứng từ, vận chuyển và thanh toán.",
+      "tech": "NestJS, Next.js, PostgreSQL, Redis, Prisma, LangGraph, Docker, Nginx",
       "features": [
         "Phát triển các module quản lý khách hàng, Sales Pipeline, báo giá, booking, chứng từ, vận chuyển và thanh toán.",
         "Xây dựng quy trình xử lý nghiệp vụ liên kết giữa các bộ phận kinh doanh, vận hành và kế toán.",
@@ -56,26 +73,26 @@
       ]
     },
     {
-      "title": "ApproveGram — Hệ thống Quản trị Nhân sự (HRM) & Phê duyệt Quy trình",
-      "description": "HRM & Workflow Automation",
-      "tech": "NestJS, React (Vite), PostgreSQL, Prisma, Telegram Bot (grammy) & Mini App, Swagger, Vitest",
+      "title": "ApproveGram — Hệ thống Quản trị Nhân sự & Phê duyệt Quy trình (R&D)",
+      "description": "Thiết kế và phát triển các module HRM: quản lý nhân viên, phòng ban, ca làm việc, giao việc, báo cáo ngày và chấm công qua Webhook.",
+      "tech": "NestJS, React, PostgreSQL, Prisma, Telegram Bot & Mini App, Swagger",
       "features": [
         "Thiết kế và phát triển các module HRM: quản lý nhân viên, phòng ban, ca làm việc, giao việc, báo cáo ngày và chấm công qua Webhook.",
         "Xây dựng Workflow Engine hỗ trợ cấu hình quy trình trực quan bằng các node, điều kiện rẽ nhánh, phê duyệt nhiều bước, gửi thông báo và cập nhật dữ liệu nghiệp vụ.",
         "Phát triển module tính lương dựa trên dữ liệu chấm công, tăng ca, phụ cấp và khấu trừ.",
-        "Tích hợp Telegram Bot (grammy) và Mini App, hỗ trợ nhân viên chấm công, gửi yêu cầu, quản lý công việc, tra cứu phiếu lương và tương tác trực tiếp với các bước phê duyệt.",
-        "Thiết kế phân quyền RBAC, bảo mật JWT + Argon2, Rate Limiting và kiểm thử tự động với Vitest."
+        "Tích hợp Telegram Bot và Mini App, hỗ trợ nhân viên chấm công, gửi yêu cầu, quản lý công việc, tra cứu phiếu lương và tương tác trực tiếp với các bước phê duyệt.",
+        "Thiết kế phân quyền RBAC, bảo mật JWT + Argon2 và Rate Limiting."
       ]
     },
     {
-      "title": "EDU CRM",
-      "description": "Education CRM",
-      "tech": "NestJS, Next.js, PostgreSQL 16, Redis 7 (BullMQ), Prisma, Tailwind CSS, shadcn/ui, Docker, Nginx, Vitest",
+      "title": "EDU CRM — Hệ thống Quản lý Tuyển sinh",
+      "description": "Phát triển các module quản lý tuyển sinh: Leads, lịch chăm sóc (Follow-ups), học viên, phụ huynh, lớp học, ghi danh, chuyển lớp và thanh toán học phí.",
+      "tech": "NestJS, Next.js, PostgreSQL, Redis, Prisma, Tailwind CSS, shadcn/ui, Docker, Nginx",
       "features": [
-        "Phát triển các module quản lý tuyển sinh và đào tạo: Leads, lịch chăm sóc (Follow-ups), học viên, phụ huynh, lớp học, ghi danh, chuyển lớp và thanh toán học phí.",
+        "Phát triển các module quản lý tuyển sinh: Leads, lịch chăm sóc (Follow-ups), học viên, phụ huynh, lớp học, ghi danh, chuyển lớp và thanh toán học phí.",
         "Xây dựng cơ chế phân công tư vấn, chống trùng lead, thông báo tự động và xử lý hàng đợi bất đồng bộ với BullMQ & Redis.",
         "Phát triển hệ thống phân quyền RBAC, nhật ký đăng nhập (Login Logs), báo cáo thống kê và xuất dữ liệu Excel (ExcelJS).",
-        "Thiết kế bảo mật JWT với Refresh Token xoay vòng (Argon2, Helmet) và kiểm thử tự động Unit/E2E với Vitest & Supertest."
+        "Thiết kế bảo mật JWT với Refresh Token xoay vòng (Argon2, Helmet)."
       ]
     }
   ],
