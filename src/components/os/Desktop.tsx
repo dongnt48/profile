@@ -1,7 +1,7 @@
 'use client';
 import { useTranslation } from '@/lib/i18n';
 import { useEffect, useRef } from 'react';
-import { House } from 'lucide-react';
+import { ArrowUpRight, Code2, House, LaptopMinimal, MapPin } from 'lucide-react';
 import { getProfile } from '@/data/profile';
 import { useWindowStore } from '@/stores/windowStore';
 import { WindowFrame } from './WindowFrame';
@@ -39,7 +39,16 @@ export function Desktop({ visible, animateContent = false }: { visible: boolean;
         <span>{t(app.title)}</span>
       </button>;
     })}</nav>
-    <div className="desktop-greeting"><span className="eyebrow">{profile.role}</span><h1>{nameParts.join(' ')}<br /><em>{givenName}</em></h1><p>{profile.location}<br />{profile.availability}</p></div>
+    {!activeWindow && <section className="desktop-greeting" aria-label={profile.name}>
+      <div className="welcome-copy">
+        <span className="welcome-role"><Code2 size={18} aria-hidden="true" />{profile.role}</span>
+        <h1><span>{nameParts.join(' ')}</span>{' '}<em>{givenName}</em></h1>
+        <ul className="welcome-specialties" aria-label={t('Technical Skills')}><li>Backend</li><li>CRM / HRM</li><li>AI & Automation</li></ul>
+        <div className="welcome-details"><span><MapPin size={18} aria-hidden="true" />{profile.location}</span><span><LaptopMinimal size={18} aria-hidden="true" />{profile.availability}</span></div>
+        <div className="welcome-actions"><button className="primary-button" onClick={() => { open('about'); playOpenSound(); }}>{t('About me')}<ArrowUpRight size={18} aria-hidden="true" /></button><button className="text-button" onClick={() => { open('projects'); playOpenSound(); }}>{t('Projects')}<ArrowUpRight size={18} aria-hidden="true" /></button></div>
+      </div>
+      <div className="welcome-art" aria-hidden="true"><img src="/images/desktop/blue-desk-reference.webp" alt="" width={1254} height={1254} /></div>
+    </section>}
     {windows.map(w => <WindowFrame key={w.id} window={w} active={!w.minimized && w.zIndex === activeZ} animateContent={animateContent} />)}
 
   </main>;

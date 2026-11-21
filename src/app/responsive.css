@@ -94,6 +94,9 @@
 .reading-mode .desktop .contact-copyable { width: 100%; }
 .reading-mode .desktop .contact-value { word-break: normal; }
 .reading-mode .desktop .contact-status { overflow-wrap: anywhere; }
+.reading-mode .desktop .desktop-greeting { left: calc(var(--reading-rail) + var(--reading-gutter)); right: var(--reading-gutter); top: calc(var(--reading-top) + 28px); width: auto; padding: 28px; transform: none; max-height: calc(100dvh - var(--reading-top) - var(--reading-bottom) - 56px); overflow-y: auto; }
+.reading-mode .desktop .welcome-copy { max-width: 100%; }
+.reading-mode .desktop .welcome-art { display: none; }
 
 @media (max-width: 699px) {
     .reading-mode .desktop .contact-app { padding-top: 22px; gap: 18px; }
@@ -127,7 +130,6 @@
         box-shadow: none;
     }
     .reading-mode .desktop .desktop-icon { flex: 0 0 auto; min-height: 68px; font-size: 12px; padding: 8px 2px; }
-    .reading-mode .desktop .desktop-greeting { left: calc(var(--reading-rail) + 24px); }
     .reading-mode .desktop .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .reading-mode .desktop .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .reading-mode .desktop .contact-identity { flex-direction: row; align-items: center; gap: 22px; }
