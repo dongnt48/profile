@@ -19,14 +19,15 @@ async function openFallback(page: import('@playwright/test').Page) {
     } as typeof original;
   });
   await page.goto('/');
-  await page.getByRole('button', { name: /^Open profile/ }).click();
+  if ((page.viewportSize()?.width ?? 1440) > 1100) await page.getByRole('button', { name: /^Open profile/ }).click();
+  else await expect(page.getByRole('dialog', { name: 'About me', exact: true })).toBeVisible();
 }
 
 
 test('fallback stays on root, windows restore and project filters work', async ({ page }) => {
   const modelRequests: string[] = []; page.on('request', r => { if (r.url().endsWith('.glb')) modelRequests.push(r.url()); });
   await openFallback(page);
-  await expect(page.getByRole('main', { name: 'DongOS desktop' })).toBeVisible();
+  await expect(page.getByRole('main', { name: 'Personal workspace' })).toBeVisible();
   await page.getByRole('button', { name: 'Open About me', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'About me', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Minimize About me' }).click();
@@ -38,20 +39,17 @@ test('fallback stays on root, windows restore and project filters work', async (
   await page.getByRole('textbox', { name: 'Search projects' }).fill('no-such-project');
   await expect(page.getByText('No matching projects.')).toBeVisible();
   await page.getByRole('button', { name: 'Reset filters' }).click();
-  await page.getByRole('button', { name: /AI Chatbot SaaS.*DonBotify/ }).click();
+  await page.getByRole('button', { name: /DonBotify.*Omnichannel AI Chatbot/ }).click();
   await expect(page.getByRole('dialog', { name: /DonBotify/ })).toBeVisible();
   await expect(page).toHaveURL('http://127.0.0.1:3000/');
 });
 
-test('settings persist after reload', async ({ page }) => {
+test('workspace has five apps without settings controls', async ({ page }) => {
   await openFallback(page);
-  await page.getByRole('button', { name: 'Open Settings', exact: true }).click();
-  await page.getByRole('switch', { name: 'Reduce motion' }).click();
-  await expect(page.getByRole('switch', { name: 'Reduce motion' })).toBeChecked();
-  await page.reload();
-  await page.getByRole('button', { name: /^Open profile/ }).click();
-  await page.getByRole('button', { name: 'Open Settings', exact: true }).click();
-  await expect(page.getByRole('switch', { name: 'Reduce motion' })).toBeChecked();
+  await expect(page.locator('.desktop-icons .desktop-icon')).toHaveCount(5);
+  await expect(page.locator('[data-app="settings"]')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /Settings/ })).toHaveCount(0);
+  await expect(page.locator('.desktop-header-actions')).toHaveCount(0);
 });
 
 test('scroll zoom stays in the room and preserves opened apps', async ({ page }) => {
@@ -77,11 +75,13 @@ test('scroll zoom stays in the room and preserves opened apps', async ({ page })
 test('mobile windows fit screen and all apps are reachable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openFallback(page);
-  for (const title of ['About me', 'Projects', 'Experience', 'Tech stack', 'Gallery', 'Contact', 'Settings']) {
+  await expect(page.locator('.desktop-icons .desktop-icon')).toHaveCount(5);
+  await expect(page.locator('[data-app="gallery"]')).toHaveCount(0);
+  for (const title of ['About me', 'Projects', 'Experience', 'Tech stack', 'Contact']) {
     await page.getByRole('button', { name: `Open ${title}`, exact: true }).click();
     const dialog = page.getByRole('dialog', { name: title, exact: true }); await expect(dialog).toBeVisible();
     const box = await dialog.boundingBox(); expect(box!.x).toBe(0); expect(box!.width).toBeLessThanOrEqual(390);
-    await page.getByRole('button', { name: `Close ${title}`, exact: true }).click();
+    await expect(page.getByRole('button', { name: `Close ${title}`, exact: true })).toHaveCount(0);
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
 });
@@ -131,8 +131,8 @@ test('foreground scene paints above the live desktop while zooming', async ({ pa
   });
   expect(foregroundFirst).toBe(true);
   await zoomToMonitor(page);
-  await page.getByRole('button', { name: 'Open Settings', exact: true }).click();
-  await expect(page.getByRole('dialog', { name: 'Settings', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Open Contact', exact: true }).click();
+  await expect(page.getByRole('dialog', { name: 'Contact', exact: true })).toBeVisible();
 });
 
 test('room overlays stay hidden while the monitor becomes interactive', async ({ page }) => {
@@ -144,7 +144,7 @@ test('room overlays stay hidden while the monitor becomes interactive', async ({
     const observer = new MutationObserver(() => {
       if (!shell.classList.contains('monitor-focused')) return;
       if (shell.getAttribute('data-room-closeup') !== 'true') glitches.push('closeup lost');
-      for (const selector of ['.room-header', '.room-footer']) {
+      for (const selector of ['.room-header']) {
         const element = shell.querySelector(selector)!;
         if (getComputedStyle(element).opacity !== '0') glitches.push(selector);
       }
@@ -170,7 +170,7 @@ test('focused monitor stays still with reduced motion and pointer movement', asy
   const screen = page.locator('#os-monitor-layer');
   await expect(screen).toBeVisible();
   await expect(screen).toHaveAttribute('data-text-rendering', 'native');
-  await expect(page.locator('[data-window="about"]')).toHaveCSS('background-color', 'rgb(32, 41, 54)');
+  await expect(page.locator('[data-window="about"]')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   await page.waitForTimeout(300);
   const before = await screen.boundingBox();
   await page.mouse.move(30, 900);
@@ -186,16 +186,18 @@ test('focused monitor stays still with reduced motion and pointer movement', asy
   await expect(screen.locator('.desktop')).toHaveAttribute('inert', '');
 });
 
-test('two-finger zoom reaches the monitor on phones without browser zoom', async ({ page }) => {
+test('phone profile scrolls directly without mounting a room', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.locator('.model-progress')).toHaveCount(0, { timeout: 30000 });
-  const session = await page.context().newCDPSession(page);
-  await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 140, y: 400 }, { x: 240, y: 400 }] });
-  await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 20, y: 400 }, { x: 370, y: 400 }] });
-  await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await expect(page.getByRole('dialog', { name: 'About me', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Open Experience', exact: true }).click();
+  const body = page.locator('[data-window="experience"] .window-body');
+  await body.hover();
+  await page.mouse.wheel(0, 400);
+  await expect.poll(() => body.evaluate(el => el.scrollTop)).toBeGreaterThan(0);
   const screen = page.locator('#os-monitor-layer');
-  await expect(page.locator('.experience')).toHaveClass(/monitor-focused/, { timeout: 15000 });
+  await expect(page.locator('.experience')).toHaveClass(/reading-mode/);
+  await expect(page.locator('canvas, .room-layer')).toHaveCount(0);
   const box = await screen.boundingBox();
   expect(box!.x).toBeGreaterThanOrEqual(0);
   expect(box!.x + box!.width).toBeLessThanOrEqual(391);
@@ -236,5 +238,5 @@ test('WebGL and model failure have direct profile fallback', async ({ page }) =>
   await page.goto('/');
   await expect(page.getByText('3D isn’t available here.')).toBeVisible();
   await page.getByRole('button', { name: /^Open profile/ }).click();
-  await expect(page.getByRole('main', { name: 'DongOS desktop' })).toBeVisible();
+  await expect(page.getByRole('main', { name: 'Personal workspace' })).toBeVisible();
 });

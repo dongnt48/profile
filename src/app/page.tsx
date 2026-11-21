@@ -1,1 +1,2 @@
-export default function HomePage() { return <div className="sr-only"><h1>Nguyễn Thanh Đông — Software Developer</h1><p>Profile · Projects · Experience · Skills · Contact</p></div>; }
+import { profile } from '@/data/profile';
+export default function HomePage() { return <div className="sr-only"><h1>{profile.name} — {profile.role}</h1><p>Profile · Projects · Experience · Skills · Contact</p></div>; }

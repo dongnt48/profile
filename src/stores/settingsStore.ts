@@ -5,8 +5,6 @@ import { create } from 'zustand';
     quality: 'low' | 'high';
     lighting: 'night';
     setSound: (value: boolean) => void;
-    setReducedMotion: (value: boolean) => void;
-    setQuality: (value: 'low' | 'high') => void;
   };
   function save(value: Partial<Settings>) {
   try {
@@ -22,6 +20,4 @@ export const useSettingsStore = create<Settings>((set) => ({
   quality: 'high',
   lighting: 'night',
   setSound: sound => { set({ sound }); save({ sound }); },
-  setReducedMotion: reducedMotion => { set({ reducedMotion }); save({ reducedMotion }); },
-  setQuality: quality => { set({ quality }); save({ quality }); },
 }));

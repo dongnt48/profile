@@ -12,17 +12,16 @@ Dự án website portfolio cá nhân tương tác lấy cảm hứng từ không
   - Thiết kế góc nhìn Isometric Cutaway với chất liệu gỗ Walnut, Olive, Sand và ánh nắng chiều ấm áp.
   - Chi tiết sống động: Bể cá thủy sinh bên trái bàn, thùng PC kính dưới gầm bàn với quạt LED quay, màn hình ultrawide, laptop, ghế công thái học, kệ sách và cây dây leo.
 - **Zoom và thao tác trực tiếp trên màn hình**:
+  - Màn hình rộng tối đa 1100px, cao tối đa 600px hoặc thiết bị cảm ứng rộng tối đa 1440px mở thẳng hồ sơ tại `/`, không dựng canvas hay tải tài nguyên phòng 3D. Điện thoại hiện đủ 5 mục điều hướng ở đáy; từ 700px, tablet dùng thanh điều hướng bên trái và các lưới nội dung 2–3 cột. Nội dung hiện nhẹ khi cuộn, tiêu đề và phần giới thiệu hiện lần lượt từng từ; tự tắt hiệu ứng khi bật giảm chuyển động. Hỗ trợ vùng an toàn, xoay màn hình và giữ trạng thái ứng dụng. Desktop lớn vẫn dùng monitor 3D.
   - Cuộn chuột hoặc pinch để zoom vào màn hình và sử dụng app ngay trong cảnh 3D, không chuyển sang trang OS. Màn hình dùng cùng một giao diện sống ở cả góc nhìn ngoài và khi zoom vào, giữ nguyên nội dung và cửa sổ; chỉ bật tương tác khi zoom sát. Đèn ScreenBar luôn hiển thị với mặt tán sáng màu trắng, không phát sáng hoặc chiếu ánh sáng xuống bàn. Cuộn trong cửa sổ chỉ cuộn nội dung; cuộn ra để đưa camera về phòng.
 - **Hệ điều hành Desktop giả lập (DongOS)**:
   - Quản lý đa cửa sổ với **Zustand**: Kéo thả (drag), thu nhỏ (minimize), phóng to (maximize), đóng (close), tự động sắp xếp thứ tự lớp (`z-index`) và giữ cửa sổ luôn trong khung nhìn khi đổi kích thước màn hình.
-  - **7 Ứng dụng tích hợp**:
-    1. **About me**: Tóm tắt chuyên môn và liên kết CV.
+  - **5 Ứng dụng tích hợp**:
+    1. **About me**: Giới thiệu chuyên môn, địa điểm làm việc và lối tắt tới dự án, liên hệ.
     2. **Projects**: Danh sách dự án lọc theo danh mục (CRM, AI, HRM) và tìm kiếm từ khóa theo thời gian thực.
     3. **Experience**: Timeline quá trình làm việc và các thành tựu nổi bật.
     4. **Tech stack**: Các nhóm kỹ năng công nghệ được phân loại trực quan.
-    5. **Gallery**: Bộ sưu tập hình ảnh kèm chế độ xem phóng to (Lightbox).
-    6. **Contact**: Email, điện thoại và địa điểm làm việc theo CV.
-    7. **Settings**: Bật/tắt âm thanh giao diện (Web Audio synth), chế độ giảm chuyển động (`Reduce motion`), và chất lượng đồ họa.
+    5. **Contact**: Email, điện thoại, địa điểm làm việc và các liên kết theo CV.
 - **Truy cập trực tiếp & Khả năng tương thích cao**:
   - Trải nghiệm dùng duy nhất đường dẫn `/`; zoom vào monitor để sử dụng profile. Khi WebGL gặp lỗi, nút mở hồ sơ hiển thị Desktop ngay tại `/`.
   - Tự động hiển thị giao diện fallback thân thiện nếu trình duyệt không hỗ trợ WebGL2.
@@ -96,7 +95,7 @@ Toàn bộ dữ liệu hiển thị trong các ứng dụng của **DongOS** đ�
 - **`src/data/cv/en.json`** và **`vi.json`**: Nội dung CV tiếng Anh/Việt; các app lấy dữ liệu từ hai file này.
 - **`src/lib/i18n.ts`**: Bản dịch giao diện. Nút EN/VI lưu lựa chọn trên thiết bị.
 - Xem hướng dẫn cập nhật và xuất CV tại [docs/cv-content.md](docs/cv-content.md).
-- **`public/images/`**: Thay thế hình ảnh trong ứng dụng Gallery hoặc hình nền.
+- **`public/images/room-preview.png`**: Ảnh dùng cho màn hình tải, fallback và ảnh chia sẻ.
 
 ---
 

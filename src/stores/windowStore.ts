@@ -16,7 +16,10 @@ export const useWindowStore = create<WindowStore>((set, get) => {
     const width = monitorEl ? monitorEl.clientWidth || 1600 : typeof window !== 'undefined' ? window.innerWidth : 1440;
     const offset = (windows.length % 5) * 26;
     const baseTop = monitorEl ? 62 : 88;
-    set({ windows: [...windows, { id, appId, minimized: false, maximized: false, zIndex: nextZ, position: { x: Math.max(24, (width - 760) / 2 + offset), y: baseTop + offset } }], nextZ: nextZ + 1 });
+    const windowWidth = width > 1100 ? Math.min(1120, width - 312) : 760;
+    const baseLeft = width > 1100 ? Math.max(280, (width - windowWidth + 248) / 2) : Math.max(24, (width - windowWidth) / 2);
+    const left = Math.min(baseLeft + offset, Math.max(24, width - windowWidth - 20));
+    set({ windows: [...windows, { id, appId, minimized: false, maximized: false, zIndex: nextZ, position: { x: left, y: baseTop + offset } }], nextZ: nextZ + 1 });
   }
   return {
     windows: [], nextZ: 1,
