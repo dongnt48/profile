@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+.git/
+blender/
+docs/
+tests/
+test-results/
+playwright-report/
+*.tsbuildinfo
+*.log
+.env*
+DEPLOY_VPS.md
